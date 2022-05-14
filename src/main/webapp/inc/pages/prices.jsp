@@ -1,0 +1,3 @@
+<p>
+    The prices
+</p>
