@@ -9,7 +9,7 @@ public class DatabaseManager {
 
     // These variables should be configured inside environement file
     private static String url = "jdbc:postgresql://localhost:5433/";
-    private static String dbName =  "appli-web";
+    private static String dbName =  "crypto-deploy";
     private static String urlParams = "?useUnicode=yes&characterEncoding=utf8";
     private static String driverName = "org.postgresql.Driver";
     private static String userName = "astrozeneka";

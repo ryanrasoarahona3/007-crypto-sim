@@ -7,7 +7,7 @@ import com.crypto.cryptosim.ValuableCrypto;
 
 import java.sql.SQLException;
 
-public class InstallationController {
+public class InstallationController extends AbstractController{
     private static InstallationController instance = null;
     public static InstallationController getInstance(){
         if(instance == null){
@@ -15,22 +15,10 @@ public class InstallationController {
         }
         return instance;
     }
-
-    // Les propriétés privés
-    private DatabaseManager dm;
-    private TickManager tm;
-    private MarketManager mm;
-
     public InstallationController(){
-        try {
-            dm = DatabaseManager.getInstance();
-            dm.init();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        tm = TickManager.getInstance();
-        mm = MarketManager.getInstance();
+        super();
     }
+
     public void install(){
         // Reset Tick Manager
         // TODO: Reset Tick Manager
