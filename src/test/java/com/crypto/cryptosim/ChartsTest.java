@@ -18,7 +18,7 @@ public class ChartsTest extends AbstractTest{
         super.init();
         ic = InstallationController.getInstance();
         cc = ChartsController.getInstance();
-        ic.install();
+        ic.install(null);
 
     }
 

@@ -26,7 +26,7 @@ public class InstallationTest {
 
     @Test
     void installationTest() throws SQLException{
-        InstallationController.getInstance().install();
+        InstallationController.getInstance().install(null);
 
         ValuableCrypto btc = MarketManager.getInstance().cryptoByName("Bitcoin");
         assertNotEquals(null, btc);

@@ -5,12 +5,12 @@ import com.crypto.cryptosim.MarketManager;
 import com.crypto.cryptosim.TickManager;
 import com.crypto.cryptosim.controllers.InstallationController;
 
+import javax.servlet.ServletContext;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.sql.SQLException;
 
 @WebServlet(name="installServlet", value="/install")
@@ -24,9 +24,16 @@ public class InstallationServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        ic.install();
-
+        // Ici, nous chargerons les configurations enregistrées dans db.properties
         PrintWriter out = response.getWriter();
+        try {
+            ic.install(getServletContext());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            e.printStackTrace(out);
+            return;
+        }
+
         out.write("Installation completed");
     }
 }
