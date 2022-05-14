@@ -33,6 +33,3 @@
 </div>
 
 
-<jsp:include page="inc/footer.jsp">
-    <jsp:param name="page" value="login"/>
-</jsp:include>
