@@ -1,7 +1,10 @@
 package com.crypto.cryptosim;
 
+import com.crypto.cryptosim.controllers.InstallationController;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.SQLException;
 
@@ -23,6 +26,14 @@ public class InstallationTest {
 
     @Test
     void installationTest() throws SQLException{
+        InstallationController.getInstance().install();
 
+        ValuableCrypto btc = MarketManager.getInstance().cryptoByName("Bitcoin");
+        assertNotEquals(null, btc);
+    }
+
+    @AfterEach
+    void tearDown(){
+        // Use tearDown method to destroy Singleton instance
     }
 }
