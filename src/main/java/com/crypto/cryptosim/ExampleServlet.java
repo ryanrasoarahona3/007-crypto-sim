@@ -1,4 +1,4 @@
-package com.example.cryptosim;
+package com.crypto.cryptosim;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;

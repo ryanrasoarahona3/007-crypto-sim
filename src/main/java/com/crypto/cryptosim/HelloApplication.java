@@ -1,4 +1,4 @@
-package com.example.cryptosim;
+package com.crypto.cryptosim;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

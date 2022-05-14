@@ -1,4 +1,4 @@
-package com.example.cryptosim;
+package com.crypto.cryptosim;
 
 import java.io.*;
 import javax.servlet.http.*;
