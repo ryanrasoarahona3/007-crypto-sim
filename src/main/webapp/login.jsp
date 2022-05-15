@@ -8,7 +8,7 @@
         <p>
             Login to the best crypto application simulator
         </p>
-        <form>
+        <form method="post" action="login">
             <div class="mb-3">
                 <label for="email" class="form-label">Email address</label>
                 <input type="email" class="form-control" id="email" name="email">
