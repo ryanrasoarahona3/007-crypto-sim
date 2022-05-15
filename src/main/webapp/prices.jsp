@@ -1,4 +1,10 @@
+<%@ page import="com.crypto.cryptosim.services.SessionManager" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    if(!SessionManager.getInstance().isLoggedIn(request))
+        response.sendRedirect("/login.jsp");
+%>
+
 <jsp:include page="inc/header.jsp">
     <jsp:param name="page" value="prices"/>
 </jsp:include>

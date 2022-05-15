@@ -64,6 +64,12 @@ public class InstallationController extends AbstractController{
             c2.setValue(100);
             mm.add(c2);
 
+            ValuableCrypto c3 = new ValuableCrypto();
+            c3.setName("Dodgecoin");
+            c3.setSlug("DOG");
+            c3.setValue(300);
+            mm.add(c3);
+
             for(int i = 0; i < 60; i++)
                 tm.nextTick();
 
