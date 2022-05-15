@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.crypto.cryptosim.services.SessionManager" %>
 
 <jsp:include page="inc/header.jsp">

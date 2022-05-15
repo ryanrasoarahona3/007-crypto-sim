@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="inc/header.jsp">
     <jsp:param name="page" value="prices"/>
 </jsp:include>

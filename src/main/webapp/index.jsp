@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.crypto.cryptosim.services.SessionManager" %><%
 
     if(SessionManager.getInstance().isLoggedIn(request)){
@@ -8,7 +9,6 @@
 <jsp:include page="inc/header.jsp">
     <jsp:param name="page" value="login"/>
 </jsp:include>
-
 <div class="container">
 
     <div class="py-3 text-center">
