@@ -1,3 +1,10 @@
+<%@ page import="com.crypto.cryptosim.services.SessionManager" %><%
+
+    if(SessionManager.getInstance().isLoggedIn(request)){
+        response.sendRedirect("./dashboard.jsp");
+    }
+%>
+
 <jsp:include page="inc/header.jsp">
     <jsp:param name="page" value="login"/>
 </jsp:include>

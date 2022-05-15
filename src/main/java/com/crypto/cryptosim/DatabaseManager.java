@@ -81,6 +81,10 @@ public class DatabaseManager {
         init();
     }
 
+    /**
+     * @deprecated HttpServletRequest ou HttpServletRequestMocker doit être passé en paramètre
+     * @throws SQLException
+     */
     public void init() throws SQLException {
         try{
             // Check database connection

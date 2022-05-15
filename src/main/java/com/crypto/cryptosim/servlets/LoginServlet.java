@@ -2,6 +2,7 @@ package com.crypto.cryptosim.servlets;
 
 import com.crypto.cryptosim.DatabaseManager;
 import com.crypto.cryptosim.models.User;
+import com.crypto.cryptosim.services.SessionManager;
 import com.crypto.cryptosim.services.UserRepository;
 
 import javax.servlet.ServletException;
@@ -18,19 +19,9 @@ import java.sql.SQLException;
 public class LoginServlet extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        HttpSession session = request.getSession();
-
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        User u = new User();
-        u.setEmail(email);
-        u.setPassword(password);
 
         try {
-            DatabaseManager.getInstance().init(request.getServletContext());
-            if(UserRepository.getInstance().verifyCredentials(u)){
-                session.setAttribute("email", email);
-                session.setAttribute("password", password);
+            if(SessionManager.getInstance().login(request)){
                 response.sendRedirect("dashboard.jsp?message=logged-in");
             }else{
                 response.sendRedirect("login.jsp?errors=login-failed");
@@ -38,5 +29,7 @@ public class LoginServlet extends HttpServlet {
         } catch (SQLException e) {
             e.printStackTrace(response.getWriter());
         }
+
+
     }
 }

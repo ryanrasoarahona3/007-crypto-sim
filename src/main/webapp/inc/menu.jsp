@@ -24,6 +24,6 @@
         <a class="nav-link" href="#">Support</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#">Logout</a>
+        <a class="nav-link" href="logout.jsp">Logout</a>
     </li>
 </ul>

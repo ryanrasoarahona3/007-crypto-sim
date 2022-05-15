@@ -1,3 +1,5 @@
+<%@ page import="com.crypto.cryptosim.services.SessionManager" %>
+
 <jsp:include page="inc/header.jsp">
     <jsp:param name="page" value="dashboard"/>
 </jsp:include>
@@ -9,6 +11,9 @@
         </jsp:include>
     </div>
     <div class="col-md-9">
+        <h1>
+            Bonjour <%= SessionManager.getInstance().getActiveUser(request).getFirstname() %>
+        </h1>
         <p>
             The content
         </p>

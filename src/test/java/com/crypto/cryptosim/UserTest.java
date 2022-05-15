@@ -47,4 +47,23 @@ public class UserTest extends AbstractTest {
         u.setPassword("password");
         assertEquals(true, ur.verifyCredentials(u));
     }
+
+    @Test
+    void searchUserByEmail() throws Exception {
+        User u1 = new User();
+        u1.setEmail("john@gmail.com");
+        u1.setPassword("passJohn");
+        ur.add(u1);
+
+        User u2 = new User();
+        u2.setEmail("jane@gmail.com");
+        u2.setPassword("passJane");
+        ur.add(u2);
+
+        User _u1 = ur.searchByEmail("john@gmail.com");
+        User _u2 = ur.searchByEmail("jane@gmail.com");
+
+        assertEquals("passJohn", _u1.getPassword());
+        assertEquals("passJane", _u2.getPassword());
+    }
 }

@@ -54,7 +54,8 @@ public class UserRepository extends AbstractRepository {
         u.setFirstname(rs.getString("user_firstname"));
         u.setLastname(rs.getString("user_lastname"));
         u.setPicture(rs.getString("user_picture"));
-        u.setBirth(new Date(rs.getDate("user_birth").getTime()));
+        if(rs.getDate("user_birth") != null)
+            u.setBirth(new Date(rs.getDate("user_birth").getTime()));
         u.setGender(Gender.ofLabel(rs.getString("user_gender")));
         u.setPhone(rs.getString("user_phone"));
         u.setAddress(rs.getString("user_address"));
@@ -114,5 +115,15 @@ public class UserRepository extends AbstractRepository {
         stmt.setString(2, u.getPassword());
         ResultSet rs = stmt.executeQuery();
         return rs.next();
+    }
+
+    public User searchByEmail(String email) throws Exception {
+        PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM \"user\" WHERE user_email=?");
+        stmt.setString(1, email);
+        ResultSet rs = stmt.executeQuery();
+        if(!rs.next()) {
+            throw new Exception("User not found in database, everything is ok");
+        }
+        return getFromResultSet(rs);
     }
 }

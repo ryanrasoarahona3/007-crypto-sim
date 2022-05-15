@@ -4,6 +4,7 @@ import com.crypto.cryptosim.DatabaseManager;
 import com.crypto.cryptosim.MarketManager;
 import com.crypto.cryptosim.TickManager;
 import com.crypto.cryptosim.ValuableCrypto;
+import com.crypto.cryptosim.services.UserRepository;
 
 import javax.servlet.ServletContext;
 import java.io.IOException;
@@ -53,6 +54,7 @@ public class InstallationController extends AbstractController{
         // Initialisation des tables
         dm.init();
         mm.buildSQLTable();
+        UserRepository.getInstance().buildSQLTable();
 
         // Créer Un crypto + 2 mois (60j) de données
         try {
