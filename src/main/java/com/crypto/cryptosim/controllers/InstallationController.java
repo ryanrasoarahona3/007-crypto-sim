@@ -5,6 +5,8 @@ import com.crypto.cryptosim.MarketManager;
 import com.crypto.cryptosim.TickManager;
 import com.crypto.cryptosim.ValuableCrypto;
 import com.crypto.cryptosim.models.User;
+import com.crypto.cryptosim.services.ExchangeRepository;
+import com.crypto.cryptosim.services.TransactionManager;
 import com.crypto.cryptosim.services.UserRepository;
 
 import javax.servlet.ServletContext;
@@ -32,8 +34,21 @@ public class InstallationController extends AbstractController{
     public void install(ServletContext context) throws SQLException {
 
         dm.init(context);
+
+        ur = UserRepository.getInstance();
+        trm = TransactionManager.getInstance();
+        er = ExchangeRepository.getInstance();
+        mm = MarketManager.getInstance();
+
+        trm.destroySQLTable();
+        er.destroySQLTable();
+        mm.destroySQLTable();
+        ur.destroySQLTable();
+
+        ur.buildSQLTable();
         mm.buildSQLTable();
-        UserRepository.getInstance().buildSQLTable();
+        er.buildSQLTable();
+        trm.buildSQLTable();
 
         // Créer Un crypto + 2 mois (60j) de données
         try {

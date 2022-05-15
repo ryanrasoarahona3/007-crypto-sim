@@ -3,6 +3,8 @@ package com.crypto.cryptosim.controllers;
 import com.crypto.cryptosim.DatabaseManager;
 import com.crypto.cryptosim.MarketManager;
 import com.crypto.cryptosim.TickManager;
+import com.crypto.cryptosim.services.ExchangeRepository;
+import com.crypto.cryptosim.services.TransactionManager;
 import com.crypto.cryptosim.services.UserRepository;
 
 import java.sql.SQLException;
@@ -12,6 +14,8 @@ public abstract class AbstractController {
     protected TickManager tm;
     protected MarketManager mm;
     protected UserRepository ur;
+    protected ExchangeRepository er;
+    protected TransactionManager trm;
 
 
     public AbstractController(){
