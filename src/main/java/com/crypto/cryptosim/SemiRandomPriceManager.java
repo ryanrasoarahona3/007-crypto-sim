@@ -30,6 +30,9 @@ public class SemiRandomPriceManager {
         }
         return instance;
     }
+    public static void tearDown(){
+        SemiRandomPriceManager.instance = null;
+    }
 
     public static ArrayList<ArrayList<Double>> tsvr(File test2) {
         ArrayList<ArrayList<Double>> Data = new ArrayList<>(); //initializing a new ArrayList out of String[]'s

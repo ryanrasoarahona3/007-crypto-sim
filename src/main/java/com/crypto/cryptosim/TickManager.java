@@ -25,6 +25,9 @@ public class TickManager {
         }
         return instance;
     }
+    public static void tearDown(){
+        TickManager.instance = null;
+    }
 
     /**
      * Get Database connection

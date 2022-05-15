@@ -1,5 +1,6 @@
 package com.crypto.cryptosim;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -92,6 +93,12 @@ public class MarketTest {
         // Retrieve it from database
         ValuableCrypto _c = mm.cryptoByName("BTC");
         assertEquals(c.getValue(), _c.getValue());
+    }
+
+    @AfterEach
+    void tearDown(){
+        SemiRandomPriceManager.tearDown();
+        TickManager.tearDown();
     }
 
 }

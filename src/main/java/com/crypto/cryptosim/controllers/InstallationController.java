@@ -69,5 +69,7 @@ public class InstallationController extends AbstractController{
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        TickManager.tearDown();
     }
 }
