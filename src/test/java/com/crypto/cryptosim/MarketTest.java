@@ -95,6 +95,22 @@ public class MarketTest {
         assertEquals(c.getValue(), _c.getValue());
     }
 
+    @Test
+    void twoCryptoInstallation() throws SQLException {
+        ValuableCrypto c1 = new ValuableCrypto();
+        c1.setName("BTC");
+        c1.setValue(200);
+        mm.add(c1);
+
+        ValuableCrypto c2 = new ValuableCrypto();
+        c2.setName("ETH");
+        c2.setValue(50);
+        mm.add(c2);
+
+        assertNotEquals(-1, c1.getSeed());
+        assertNotEquals(-1, c2.getSeed());
+    }
+
     @AfterEach
     void tearDown(){
         SemiRandomPriceManager.tearDown();

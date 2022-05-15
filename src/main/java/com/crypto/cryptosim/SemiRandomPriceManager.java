@@ -85,17 +85,12 @@ public class SemiRandomPriceManager {
     }
 
     public int requestForSeed(){
-        if(usedSeeds.size() == 0){
-            int randomNum;
-            do{
-                randomNum = ThreadLocalRandom.current().nextInt(0, seedData.size());
-            }while(usedSeeds.contains(randomNum));
-            usedSeeds.add(randomNum); // Une manière provisoire pour mettre le tableau à jour
-            // Plus tard, elle sera quand même mise à jour selon les données provenant de la base
-            return randomNum;
-        }else{
-            return -1;
-        }
+        int randomNum;
+        do{
+            randomNum = ThreadLocalRandom.current().nextInt(0, seedData.size());
+        }while(usedSeeds.contains(randomNum));
+        syncUsedSeed();
+        return randomNum;
     }
 
     public void updateCryptoPrice(ValuableCrypto c, int newCursor){
