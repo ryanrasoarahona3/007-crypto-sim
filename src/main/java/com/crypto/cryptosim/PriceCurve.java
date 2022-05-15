@@ -21,7 +21,7 @@ public class PriceCurve{
      * Get Database connection
      * @return
      */
-    protected Connection getConnection(){
+    protected Connection getConnection() throws SQLException {
         return DatabaseManager.getInstance().getConnection();
     }
 

@@ -10,7 +10,7 @@ public abstract class AbstractRepository<Bean> {
      * Get Database connection
      * @return
      */
-    protected Connection getConnection(){
+    protected Connection getConnection() throws SQLException {
         return DatabaseManager.getInstance().getConnection();
     }
 

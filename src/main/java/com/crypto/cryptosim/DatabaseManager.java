@@ -3,10 +3,12 @@ package com.crypto.cryptosim;
 import javax.servlet.ServletContext;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class DatabaseManager {
     private static DatabaseManager instance = null;
@@ -74,8 +76,9 @@ public class DatabaseManager {
 
     private Connection con;
 
-    public DatabaseManager(){
+    public DatabaseManager() throws SQLException {
         // La méthode init() doit être appelé manuellement après la configuration de la base de donnée
+        init();
     }
 
     public void init() throws SQLException {
@@ -92,11 +95,30 @@ public class DatabaseManager {
         }
     }
 
+    // TODO: getter&Setter could be used
+    public void init(ServletContext context) throws SQLException{
+        InputStream is = context.getResourceAsStream("/WEB-INF/db.properties");
+        Properties p = new Properties();
+        try {
+            // Quelques valeurs par défaut
+            p.load(is);
+            DatabaseManager.setDriverName((String)p.get("DATABASE_DRIVER"));
+            DatabaseManager.setUrl("jdbc:postgresql://"+p.get("DATABASE_HOST")+":"+p.get("DATABASE_PORT")+"/");
+            DatabaseManager.setDbName((String)p.get("DATABASE_NAME"));
+            DatabaseManager.setUserName((String)p.get("DATABASE_USER"));
+            DatabaseManager.setPassword((String)p.get("DATABASE_PASSWORD"));
+            System.out.println("OK");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        init(); // This function can be called twice
+    }
+
     public Connection getConnection(){
         return con;
     }
 
-    public static DatabaseManager getInstance(){
+    public static DatabaseManager getInstance() throws SQLException {
         if(instance == null){
             instance = new DatabaseManager();
         }
