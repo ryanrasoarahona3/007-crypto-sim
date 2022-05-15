@@ -24,7 +24,7 @@ public class InstallationServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        // Ici, nous chargerons les configurations enregistrées dans db.properties
+        // Ici, nous chargerons les configurations enregistrées dans db.properties.example
         PrintWriter out = response.getWriter();
         try {
             ic.install(getServletContext());
