@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.sql.SQLException;
 
-@WebServlet(name="installServlet", value="/install")
+@WebServlet(name="installationServlet", value="/installation")
 public class InstallationServlet extends HttpServlet {
 
     protected InstallationController ic;
@@ -33,7 +33,6 @@ public class InstallationServlet extends HttpServlet {
             e.printStackTrace(out);
             return;
         }
-
-        out.write("Installation completed");
+        response.sendRedirect("./?message=installed");
     }
 }
