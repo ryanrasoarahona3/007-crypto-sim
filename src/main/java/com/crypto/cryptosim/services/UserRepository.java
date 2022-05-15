@@ -24,7 +24,7 @@ public class UserRepository extends AbstractRepository {
 
     @Override
     public void buildSQLTable() throws SQLException {
-        String sql = "DROP TABLE IF EXISTS \"user\";\n" +
+        String sql = "" +
                 "DROP TYPE IF EXISTS gender;\n" +
                 "CREATE TYPE gender AS ENUM('MALE', 'FEMALE', 'UNKNOWN');\n" +
                 "CREATE TABLE \"user\" (\n" +
@@ -42,6 +42,12 @@ public class UserRepository extends AbstractRepository {
                 ");";
         Statement stmt = getConnection().createStatement();
         stmt.execute(sql);
+    }
+
+    @Override
+    public void destroySQLTable() throws SQLException {
+        Statement stmt = getConnection().createStatement();
+        stmt.execute("DROP TABLE IF EXISTS \"user\";\n");
     }
 
     // TODO: a factoriser

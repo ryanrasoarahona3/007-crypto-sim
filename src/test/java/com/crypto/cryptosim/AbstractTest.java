@@ -1,8 +1,10 @@
 package com.crypto.cryptosim;
 
 import com.crypto.cryptosim.services.ExchangeRepository;
+import com.crypto.cryptosim.services.TransactionManager;
 import com.crypto.cryptosim.services.TransactionRepository;
 import com.crypto.cryptosim.services.UserRepository;
+import org.junit.jupiter.api.BeforeEach;
 
 import java.sql.SQLException;
 
@@ -12,20 +14,31 @@ public abstract class AbstractTest {
     protected MarketManager mm;
     protected UserRepository ur;
     protected ExchangeRepository er;
-    protected TransactionRepository tr;
+    protected TransactionManager trm;
 
+    @BeforeEach
     protected void init() throws SQLException {
         dm = DatabaseManager.getInstance();
         dm.setDbName("crypto-test");
         dm.init();
         tm = TickManager.getInstance();
-        mm = MarketManager.getInstance();
-        mm.buildSQLTable();
+
+
         ur = UserRepository.getInstance();
-        ur.buildSQLTable();
+        trm = TransactionManager.getInstance();
         er = ExchangeRepository.getInstance();
+        mm = MarketManager.getInstance();
+
+        trm.destroySQLTable();
+        er.destroySQLTable();
+        mm.destroySQLTable();
+        ur.destroySQLTable();
+
+        ur.buildSQLTable();
+        mm.buildSQLTable();
         er.buildSQLTable();
-        tr = TransactionRepository.getInstance();
-        tr.buildSQLTable();
+        trm.buildSQLTable();
+
+
     }
 }

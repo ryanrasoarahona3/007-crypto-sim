@@ -20,15 +20,21 @@ public class ExchangeRepository extends AbstractRepository {
 
     @Override
     public void buildSQLTable() throws SQLException {
-        String sql = "DROP TABLE IF EXISTS \"exchange\";\n" +
+        String sql = "" +
                 "CREATE TABLE \"exchange\" (\n" +
                 "    exchange_id serial PRIMARY KEY,\n" +
-                "    logo text,\n" +
-                "    name varchar(255),\n" +
-                "    url varchar(255)\n" +
-                ");";
+                "    exchange_logo text,\n" +
+                "    exchange_name varchar(255),\n" +
+                "    exchange_url varchar(255)\n" +
+                ");\n";
         Statement stmt = getConnection().createStatement();
         stmt.execute(sql);
+    }
+
+    @Override
+    public void destroySQLTable() throws SQLException {
+        Statement stmt = getConnection().createStatement();
+        stmt.execute("DROP TABLE IF EXISTS \"exchange\";\n");
     }
 
     @Override

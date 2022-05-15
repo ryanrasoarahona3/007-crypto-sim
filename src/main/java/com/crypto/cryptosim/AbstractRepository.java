@@ -21,6 +21,12 @@ public abstract class AbstractRepository<Bean> {
     public abstract void buildSQLTable() throws SQLException;
 
     /**
+     * Destroy table
+     * @throws SQLException
+     */
+    public abstract void destroySQLTable() throws SQLException;
+
+    /**
      * Add an entity
      * @param b The entity to append
      * @throws SQLException

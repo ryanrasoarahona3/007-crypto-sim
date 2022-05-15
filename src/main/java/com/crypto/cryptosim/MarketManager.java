@@ -17,8 +17,7 @@ public class MarketManager extends AbstractRepository{
 
     @Override
     public void buildSQLTable() throws SQLException {
-        String sql = "DROP TABLE IF EXISTS \"price\";\n" +
-                "DROP TABLE IF EXISTS \"crypto\";\n" +
+        String sql = "" +
                 "" +
                 "" +
                 "CREATE TABLE \"crypto\" (\n" +
@@ -39,6 +38,13 @@ public class MarketManager extends AbstractRepository{
                 ");";
         Statement stmt = getConnection().createStatement();
         stmt.execute(sql);
+    }
+
+    @Override
+    public void destroySQLTable() throws SQLException {
+        Statement stmt = getConnection().createStatement();
+        stmt.execute("DROP TABLE IF EXISTS \"price\";\n" +
+                "DROP TABLE IF EXISTS \"crypto\";\n");
     }
 
     public ValuableCrypto getFromResultSet(ResultSet rs) throws SQLException {

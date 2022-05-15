@@ -55,22 +55,26 @@ CREATE TABLE "user" (
 DROP TABLE IF EXISTS "exchange";
 CREATE TABLE "exchange" (
     exchange_id serial PRIMARY KEY,
-    logo text,
-    name varchar(255),
-    url varchar(255)
+    exchange_logo text,
+    exchange_name varchar(255),
+    exchange_url varchar(255)
 );
 
 
 DROP TABLE IF EXISTS "transaction";
 CREATE TABLE "transaction" (
     transaction_id serial PRIMARY KEY,
-    transaction_transmitter INT,
-    transaction_recipient INT,
-    transaction_crypto INT,
+    transaction_transmitter INT NULL,
+    transaction_recipient INT NULL,
+    transaction_crypto INT NULL,
     transaction_sum INT,
-    transaction_exchange INT,
-    CONSTRAINT fk_transmitter FOREIGN KEY (transaction_transmitter) REFERENCES user(user_id),
-    CONSTRAINT fk_recipient FOREIGN KEY (transaction_recipient) REFERENCES user(user_id),
+    transaction_exchange INT NULL,
+    CONSTRAINT fk_transmitter FOREIGN KEY (transaction_transmitter) REFERENCES "user"(user_id),
+    CONSTRAINT fk_recipient FOREIGN KEY (transaction_recipient) REFERENCES "user"(user_id),
     CONSTRAINT fk_crypto FOREIGN KEY (transaction_crypto) REFERENCES crypto(crypto_id),
-    CONSTRAINT fk_exchange FOREIGN KEY (transaction_exchange) REFERENCES exchange(transaction_id)
+    CONSTRAINT fk_exchange FOREIGN KEY (transaction_exchange) REFERENCES exchange(exchange_id)
 );
+
+
+--
+-- SELECT
