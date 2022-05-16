@@ -1,5 +1,7 @@
 package com.crypto.cryptosim;
 
+import org.postgresql.util.PSQLException;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -54,7 +56,12 @@ public class MarketManager extends AbstractRepository{
         c.setSlug(rs.getString("crypto_slug"));
         c.setDescription(rs.getString("crypto_desc"));
         c.setSeed(rs.getInt("crypto_seed"));
-        c.setValue(rs.getInt("crypto_price"));
+        try {
+            rs.getInt("crypto_price");
+            c.setValue(rs.getInt("crypto_price"));
+        } catch (PSQLException e) {
+            return c;
+        }
         return c;
     }
 
@@ -91,8 +98,37 @@ public class MarketManager extends AbstractRepository{
         TickManager.getInstance().addObserver(c);
     }
 
+
+    public int getCryptoPrice(Crypto c) throws Exception {
+        String sql = "select * from price where price_crypto=? order by price_date desc limit 1;";
+
+        PreparedStatement stmt = getConnection().prepareStatement(sql);
+        stmt.setInt(1, c.getId());
+        ResultSet rs = stmt.executeQuery();
+        if(!rs.next())
+            throw new Exception("Le prix est introuvable, vérifiez que le prix a été initialisé");
+        return rs.getInt("price_value");
+    }
+
     @Override
     public ArrayList<ValuableCrypto> getAll() throws SQLException {
+        String sql = "SELECT * FROM crypto";
+        ArrayList<ValuableCrypto> output = new ArrayList<>();
+        PreparedStatement stmt = getConnection().prepareStatement(sql);
+
+        ResultSet rs = stmt.executeQuery();
+        while(rs.next()){
+            ValuableCrypto c = getFromResultSet(rs);
+            try {
+                c.setValue(getCryptoPrice(c));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            output.add(c);
+        }
+        return output;
+
+        /*
         String sql = "SELECT crypto_id, crypto_name, crypto_slug, crypto_desc, crypto_seed, price_value as crypto_price\n" +
                 "FROM \"crypto\"\n" +
                 "         INNER JOIN (\n" +
@@ -108,6 +144,7 @@ public class MarketManager extends AbstractRepository{
             output.add((ValuableCrypto) getFromResultSet(rs));
         }
         return output;
+         */
     }
 
     /**
