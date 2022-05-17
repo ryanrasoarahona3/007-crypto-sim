@@ -1,5 +1,6 @@
 package com.crypto.cryptosim.services;
 
+import com.crypto.cryptosim.MarketManager;
 import com.crypto.cryptosim.ValuableCrypto;
 import com.crypto.cryptosim.models.Transaction;
 import com.crypto.cryptosim.models.User;
@@ -7,6 +8,7 @@ import com.crypto.cryptosim.models.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * Cette classe a été créée pour gérer les transactions courantes
@@ -101,5 +103,14 @@ public class TransactionManager extends TransactionDAO {
 
     public int numberOfCoins(User u, ValuableCrypto c) throws SQLException {
         return totalPurchased(u, c) - totalSold(u, c);
+    }
+
+    public int totalCryptoValues(User u) throws SQLException {
+        ArrayList<ValuableCrypto> cryptos = MarketManager.getInstance().getAll();
+        int output;
+        for(int i = 0; i < cryptos.size(); i++){
+            ValuableCrypto c = cryptos.get(i);
+            int possessed =
+        }
     }
 }
