@@ -31,6 +31,7 @@ public class TransactionRepository extends AbstractRepository {
                 "    transaction_transmitter INT NULL,\n" +
                 "    transaction_recipient INT NULL,\n" +
                 "    transaction_crypto INT NULL,\n" +
+                "    transaction_crypto_n INT NULL,\n" +
                 "    transaction_sum INT,\n" +
                 "    transaction_exchange INT NULL,\n" +
                 "    CONSTRAINT fk_transmitter FOREIGN KEY (transaction_transmitter) REFERENCES \"user\"(user_id),\n" +
@@ -54,6 +55,7 @@ public class TransactionRepository extends AbstractRepository {
         t.setTransmitterId(rs.getInt("transaction_transmitter"));
         t.setRecipientId(rs.getInt("transaction_recipient"));
         t.setCryptoId(rs.getInt("transaction_crypto"));
+        t.setCryptoN(rs.getInt("transaction_crypto_n"));
         t.setSum(rs.getInt("transaction_sum"));
         t.setExchangeId(rs.getInt("transaction_exchange"));
         return t;
@@ -63,7 +65,7 @@ public class TransactionRepository extends AbstractRepository {
     public void add(Object b) throws SQLException {
         Transaction t = (Transaction) b;
         String sql = "INSERT INTO \"transaction\" (transaction_transmitter, transaction_recipient, transaction_crypto, " +
-                "transaction_sum, transaction_exchange) VALUES (?, ?, ?, ?, ?);";
+                "transaction_crypto_n, transaction_sum, transaction_exchange) VALUES (?, ?, ?, ?, ?, ?);";
         PreparedStatement stmt = getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
         if(t.getTransmitterId() != 0) stmt.setInt(1, t.getTransmitterId());
@@ -75,10 +77,13 @@ public class TransactionRepository extends AbstractRepository {
         if(t.getCryptoId() != 0) stmt.setInt(3, t.getCryptoId());
         else stmt.setObject(3, null);
 
-        stmt.setInt(4, t.getSum());
+        if(t.getCryptoN() != 0) stmt.setInt(4, t.getCryptoN());
+        else stmt.setObject(4, null);
 
-        if(t.getExchangeId() != 0) stmt.setInt(5, t.getExchangeId());
-        stmt.setObject(5, null);
+        stmt.setInt(5, t.getSum());
+
+        if(t.getExchangeId() != 0) stmt.setInt(6, t.getExchangeId());
+        stmt.setObject(6, null);
 
         stmt.execute();
 

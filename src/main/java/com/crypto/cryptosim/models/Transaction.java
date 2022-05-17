@@ -5,6 +5,7 @@ public class Transaction {
     private int transmitterId;
     private int recipientId;
     private int cryptoId;
+    private int cryptoN; // number of crypto
     private int sum;
     private int exchangeId;
 
@@ -38,6 +39,14 @@ public class Transaction {
 
     public void setCryptoId(int cryptoId) {
         this.cryptoId = cryptoId;
+    }
+
+    public int getCryptoN() {
+        return cryptoN;
+    }
+
+    public void setCryptoN(int cryptoN) {
+        this.cryptoN = cryptoN;
     }
 
     public int getSum() {

@@ -67,6 +67,7 @@ CREATE TABLE "transaction" (
     transaction_transmitter INT NULL,
     transaction_recipient INT NULL,
     transaction_crypto INT NULL,
+    transaction_crypto_n INT NULL,
     transaction_sum INT,
     transaction_exchange INT NULL,
     CONSTRAINT fk_transmitter FOREIGN KEY (transaction_transmitter) REFERENCES "user"(user_id),
