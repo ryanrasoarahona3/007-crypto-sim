@@ -2,6 +2,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.crypto.cryptosim.ValuableCrypto" %>
 <%@ page import="com.crypto.cryptosim.MarketManager" %>
+<%@ page import="java.lang.reflect.Array" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <div class="row">

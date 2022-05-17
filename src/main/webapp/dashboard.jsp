@@ -2,8 +2,11 @@
 <%@ page import="com.crypto.cryptosim.services.SessionManager" %>
 <%@ page import="com.crypto.cryptosim.services.TransactionManager" %>
 <%@ page import="com.crypto.cryptosim.models.User" %>
+<%@ page import="javax.xml.crypto.Data" %>
+<%@ page import="com.crypto.cryptosim.DatabaseManager" %>
 
 <%
+    DatabaseManager.getInstance().init(request.getServletContext());
     User user = SessionManager.getInstance().getActiveUser(request);
 %>
 
