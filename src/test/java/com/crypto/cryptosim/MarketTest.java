@@ -10,23 +10,7 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-public class MarketTest {
-    private DatabaseManager dm;
-    private TickManager tm;
-    private MarketManager mm;
-
-    @BeforeEach
-    void init() throws SQLException {
-
-        dm = DatabaseManager.getInstance();
-        dm.setDbName("crypto-test");
-        dm.init();
-
-        tm = TickManager.getInstance();
-
-        mm = MarketManager.getInstance();
-        mm.buildSQLTable();
-    }
+public class MarketTest extends AbstractTest{
 
     @Test
     void cryptoInsertion() throws SQLException {
