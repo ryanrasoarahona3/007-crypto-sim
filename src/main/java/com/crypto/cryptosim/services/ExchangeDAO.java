@@ -1,21 +1,21 @@
 package com.crypto.cryptosim.services;
 
-import com.crypto.cryptosim.AbstractRepository;
+import com.crypto.cryptosim.AbstractDAO;
 
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class ExchangeRepository extends AbstractRepository {
+public class ExchangeDAO extends AbstractDAO {
 
-    private static ExchangeRepository instance = null;
-    public static ExchangeRepository getInstance(){
+    private static ExchangeDAO instance = null;
+    public static ExchangeDAO getInstance(){
         if(instance == null)
-            instance = new ExchangeRepository();
+            instance = new ExchangeDAO();
         return instance;
     }
     public static void tearDown(){
-        ExchangeRepository.instance = null;
+        ExchangeDAO.instance = null;
     }
 
     @Override

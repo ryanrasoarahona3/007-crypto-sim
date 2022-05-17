@@ -1,7 +1,6 @@
 package com.crypto.cryptosim.services;
 
-import com.crypto.cryptosim.AbstractRepository;
-import com.crypto.cryptosim.MarketManager;
+import com.crypto.cryptosim.AbstractDAO;
 import com.crypto.cryptosim.models.Gender;
 import com.crypto.cryptosim.models.User;
 
@@ -9,16 +8,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class UserRepository extends AbstractRepository {
-    private static UserRepository instance = null;
-    public static UserRepository getInstance(){
+public class UserDAO extends AbstractDAO {
+    private static UserDAO instance = null;
+    public static UserDAO getInstance(){
         if(instance == null)
-            instance = new UserRepository();
+            instance = new UserDAO();
         return instance;
     }
 

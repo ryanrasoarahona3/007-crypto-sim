@@ -29,7 +29,7 @@ public class SessionManager {
 
         HttpSession session = request.getSession();
         DatabaseManager.getInstance().init(request.getServletContext());
-        if(UserRepository.getInstance().verifyCredentials(u)){
+        if(UserDAO.getInstance().verifyCredentials(u)){
             session.setAttribute("email", email);
             session.setAttribute("password", password);
             return true;
@@ -55,7 +55,7 @@ public class SessionManager {
         u.setPassword(password);
 
         DatabaseManager.getInstance().init(request.getServletContext());
-        if(UserRepository.getInstance().verifyCredentials(u)){
+        if(UserDAO.getInstance().verifyCredentials(u)){
             session.setAttribute("email", email);
             session.setAttribute("password", password);
             return true;
@@ -75,7 +75,7 @@ public class SessionManager {
         else{
             HttpSession session = request.getSession();
             DatabaseManager.getInstance().init(request.getServletContext());
-            User u = UserRepository.getInstance().searchByEmail((String) session.getAttribute("email"));
+            User u = UserDAO.getInstance().searchByEmail((String) session.getAttribute("email"));
             return u;
         }
     }

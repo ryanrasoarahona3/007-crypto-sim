@@ -1,19 +1,15 @@
 package com.crypto.cryptosim.controllers;
 
-import com.crypto.cryptosim.DatabaseManager;
 import com.crypto.cryptosim.MarketManager;
 import com.crypto.cryptosim.TickManager;
 import com.crypto.cryptosim.ValuableCrypto;
 import com.crypto.cryptosim.models.User;
-import com.crypto.cryptosim.services.ExchangeRepository;
+import com.crypto.cryptosim.services.ExchangeDAO;
 import com.crypto.cryptosim.services.TransactionManager;
-import com.crypto.cryptosim.services.UserRepository;
+import com.crypto.cryptosim.services.UserDAO;
 
 import javax.servlet.ServletContext;
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.SQLException;
-import java.util.Properties;
 
 public class InstallationController extends AbstractController{
     private static InstallationController instance = null;
@@ -35,9 +31,9 @@ public class InstallationController extends AbstractController{
 
         dm.init(context);
 
-        ur = UserRepository.getInstance();
+        ur = UserDAO.getInstance();
         trm = TransactionManager.getInstance();
-        er = ExchangeRepository.getInstance();
+        er = ExchangeDAO.getInstance();
         mm = MarketManager.getInstance();
 
         trm.destroySQLTable();

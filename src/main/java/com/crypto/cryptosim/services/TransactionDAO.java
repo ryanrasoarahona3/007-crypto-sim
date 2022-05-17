@@ -1,8 +1,7 @@
 package com.crypto.cryptosim.services;
 
-import com.crypto.cryptosim.AbstractRepository;
+import com.crypto.cryptosim.AbstractDAO;
 import com.crypto.cryptosim.models.Transaction;
-import com.crypto.cryptosim.models.User;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,16 +9,16 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class TransactionRepository extends AbstractRepository {
+public class TransactionDAO extends AbstractDAO {
 
-    private static TransactionRepository instance = null;
-    public static TransactionRepository getInstance(){
+    private static TransactionDAO instance = null;
+    public static TransactionDAO getInstance(){
         if(instance == null)
-            instance = new TransactionRepository();
+            instance = new TransactionDAO();
         return instance;
     }
     public static void tearDown(){
-        TransactionRepository.instance = null;
+        TransactionDAO.instance = null;
     }
 
 

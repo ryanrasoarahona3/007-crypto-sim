@@ -2,7 +2,7 @@ package com.crypto.cryptosim.servlets;
 
 import com.crypto.cryptosim.DatabaseManager;
 import com.crypto.cryptosim.models.User;
-import com.crypto.cryptosim.services.UserRepository;
+import com.crypto.cryptosim.services.UserDAO;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,7 +24,7 @@ public class SignupServlet extends HttpServlet {
         u.setPassword(request.getParameter("password"));
         try {
             DatabaseManager.getInstance().init(request.getServletContext());
-            UserRepository.getInstance().add(u);
+            UserDAO.getInstance().add(u);
         } catch (SQLException e) {
             e.printStackTrace(response.getWriter());
             return;

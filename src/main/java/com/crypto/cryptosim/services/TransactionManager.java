@@ -11,7 +11,7 @@ import java.sql.SQLException;
 /**
  * Cette classe a été créée pour gérer les transactions courantes
  */
-public class TransactionManager extends TransactionRepository{
+public class TransactionManager extends TransactionDAO {
 
     private static TransactionManager instance = null;
     public static TransactionManager getInstance(){
