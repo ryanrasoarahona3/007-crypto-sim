@@ -70,6 +70,7 @@ CREATE TABLE "transaction" (
     transaction_crypto_n INT NULL,
     transaction_sum INT,
     transaction_exchange INT NULL,
+    transaction_date DATE NOT NULL,
     CONSTRAINT fk_transmitter FOREIGN KEY (transaction_transmitter) REFERENCES "user"(user_id),
     CONSTRAINT fk_recipient FOREIGN KEY (transaction_recipient) REFERENCES "user"(user_id),
     CONSTRAINT fk_crypto FOREIGN KEY (transaction_crypto) REFERENCES crypto(crypto_id),

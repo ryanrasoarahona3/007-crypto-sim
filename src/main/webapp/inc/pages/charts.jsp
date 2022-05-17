@@ -78,7 +78,7 @@
 <script>
     window.addEventListener("load", ()=>{
         <%
-            for(int i = 0; i < cryptos.size() && i < 3; i++){
+            for(int i = 0; i < cryptos.size(); i++){
                 ValuableCrypto c = cryptos.get(i);
                 for(int j = 0; j < 3; j++){
                     int numberOfDays = (new int[]{7, 30, 90})[j];

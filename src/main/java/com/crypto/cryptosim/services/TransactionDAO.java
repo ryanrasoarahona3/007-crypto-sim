@@ -1,6 +1,7 @@
 package com.crypto.cryptosim.services;
 
 import com.crypto.cryptosim.AbstractDAO;
+import com.crypto.cryptosim.TickManager;
 import com.crypto.cryptosim.models.Transaction;
 
 import java.sql.PreparedStatement;
@@ -33,6 +34,7 @@ public class TransactionDAO extends AbstractDAO {
                 "    transaction_crypto_n INT NULL,\n" +
                 "    transaction_sum INT,\n" +
                 "    transaction_exchange INT NULL,\n" +
+                "    transaction_date DATE NOT NULL,\n" +
                 "    CONSTRAINT fk_transmitter FOREIGN KEY (transaction_transmitter) REFERENCES \"user\"(user_id),\n" +
                 "    CONSTRAINT fk_recipient FOREIGN KEY (transaction_recipient) REFERENCES \"user\"(user_id),\n" +
                 "    CONSTRAINT fk_crypto FOREIGN KEY (transaction_crypto) REFERENCES crypto(crypto_id),\n" +
@@ -64,7 +66,7 @@ public class TransactionDAO extends AbstractDAO {
     public void add(Object b) throws SQLException {
         Transaction t = (Transaction) b;
         String sql = "INSERT INTO \"transaction\" (transaction_transmitter, transaction_recipient, transaction_crypto, " +
-                "transaction_crypto_n, transaction_sum, transaction_exchange) VALUES (?, ?, ?, ?, ?, ?);";
+                "transaction_crypto_n, transaction_sum, transaction_exchange, transaction_date) VALUES (?, ?, ?, ?, ?, ?, ?);";
         PreparedStatement stmt = getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
         if(t.getTransmitterId() != 0) stmt.setInt(1, t.getTransmitterId());
@@ -83,6 +85,9 @@ public class TransactionDAO extends AbstractDAO {
 
         if(t.getExchangeId() != 0) stmt.setInt(6, t.getExchangeId());
         stmt.setObject(6, null);
+
+        // An automatic date addition
+        stmt.setDate(7, java.sql.Date.valueOf(TickManager.getInstance().getDate()));
 
         stmt.execute();
 

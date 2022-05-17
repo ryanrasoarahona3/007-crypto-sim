@@ -167,4 +167,22 @@ public class MarketManager extends AbstractDAO {
             return (ValuableCrypto) null;
         return getFromResultSet(rs);
     }
+
+
+    public ValuableCrypto cryptoById(int id) throws SQLException {
+        String sql = "SELECT crypto_id, crypto_name, crypto_slug, crypto_desc, crypto_seed, price_value as crypto_price\n" +
+                "FROM \"crypto\"\n" +
+                "         INNER JOIN (\n" +
+                "    SELECT price_crypto, max(price_date) as MaxDate FROM price group by price_crypto\n" +
+                ") tm ON crypto_id = tm.price_crypto\n" +
+                "         INNER JOIN price ON crypto_id = price.price_crypto\n" +
+                "WHERE crypto_id=? AND tm.MaxDate = price.price_date;";
+        PreparedStatement stmt = null;
+        stmt = getConnection().prepareStatement(sql);
+        stmt.setInt(1, id);
+        ResultSet rs = stmt.executeQuery();
+        if(!rs.next())
+            return (ValuableCrypto) null;
+        return getFromResultSet(rs);
+    }
 }
