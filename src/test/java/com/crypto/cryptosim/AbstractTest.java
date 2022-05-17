@@ -1,5 +1,6 @@
 package com.crypto.cryptosim;
 
+import com.crypto.cryptosim.controllers.ChartsController;
 import com.crypto.cryptosim.services.ExchangeDAO;
 import com.crypto.cryptosim.services.TransactionManager;
 import com.crypto.cryptosim.services.UserDAO;
@@ -14,13 +15,13 @@ public abstract class AbstractTest {
     protected UserDAO ur;
     protected ExchangeDAO er;
     protected TransactionManager trm;
+    protected ChartsController cc;
 
     @BeforeEach
     protected void init() throws SQLException {
         dm = DatabaseManager.getInstance();
         dm.setDbName("crypto-test");
         dm.init();
-        tm = TickManager.getInstance();
 
 
         ur = UserDAO.getInstance();
@@ -38,6 +39,7 @@ public abstract class AbstractTest {
         er.buildSQLTable();
         trm.buildSQLTable();
 
+        tm = TickManager.getInstance();
 
     }
 }

@@ -3,6 +3,7 @@ package com.crypto.cryptosim.controllers;
 import com.crypto.cryptosim.MarketManager;
 import com.crypto.cryptosim.PriceCurve;
 import com.crypto.cryptosim.ValuableCrypto;
+import com.crypto.cryptosim.structures.ChartData;
 import com.google.gson.Gson;
 
 import java.sql.SQLException;
@@ -52,6 +53,11 @@ public class ChartsController extends AbstractController{
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return null;
+    }
+
+    public ChartData getLastNDaysData(ValuableCrypto c, int n){
+        ChartData output = new ChartData();
         return null;
     }
 }

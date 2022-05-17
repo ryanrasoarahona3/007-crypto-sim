@@ -1,5 +1,7 @@
 package com.crypto.cryptosim;
 
+import org.postgresql.util.PSQLException;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -109,7 +111,7 @@ public class TickManager {
     private static LocalDate fromString(String str){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MMM-dd");
         formatter = formatter.withLocale( Locale.ENGLISH );  // Locale specifies human language for translating, and cultural norms for lowercase/uppercase and abbreviations and such. Example: Locale.US or Locale.CANADA_FRENCH
-        LocalDate date = LocalDate.parse("2000-Jan-01", formatter);
+        LocalDate date = LocalDate.parse(str);
         return date;
     }
 
@@ -121,8 +123,17 @@ public class TickManager {
         return date;
     }
 
-    public TickManager()  {
-        date = fromString("01-Jan-2000");
+    public TickManager() {
+
+        PreparedStatement stmt = null;
+        try {
+            stmt = getConnection().prepareStatement("SELECT price_date FROM price ORDER BY price_date DESC LIMIT 1;");
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+            date = fromString(rs.getDate("price_date").toString());
+        } catch (SQLException e) {
+            date = fromString("2000-01-01"); // date par défaut
+        }
     }
 
     public void addObserver(ValuableCrypto c){
