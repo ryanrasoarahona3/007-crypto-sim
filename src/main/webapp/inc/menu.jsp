@@ -3,7 +3,7 @@
         <a class="nav-link active" href="dashboard.jsp">Dashboard</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#">Wallet</a>
+        <a class="nav-link" href="wallet.jsp">Wallet</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="charts.jsp">Charts</a>
