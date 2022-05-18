@@ -22,7 +22,7 @@
         Si vous n'avez pas encore de compte, <a href="signup.jsp">inscrivez-vous</a>.
     </p>
     <p>
-
+        Vous pouvez aussi choisir de <a href="installation.jsp">réinstaller</a> la base de donnnées
     </p>
 </div>
 

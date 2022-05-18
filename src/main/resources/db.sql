@@ -52,12 +52,17 @@ CREATE TABLE "user" (
 );
 
 
+-- Exchange
 DROP TABLE IF EXISTS "exchange";
 CREATE TABLE "exchange" (
     exchange_id serial PRIMARY KEY,
     exchange_logo text,
     exchange_name varchar(255),
-    exchange_url varchar(255)
+    exchange_url varchar(255),
+    exchange_vol_day int,
+    exchange_vol_week int,
+    exchange_vol_month int,
+    exchange_vol_liquidity int
 );
 
 

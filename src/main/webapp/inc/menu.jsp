@@ -12,7 +12,7 @@
         <a class="nav-link" href="prices.jsp">Prices</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#">Exchange</a>
+        <a class="nav-link" href="exchange.jsp">Exchange</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="profile.jsp">Profile</a>

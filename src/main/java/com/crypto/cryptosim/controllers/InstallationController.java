@@ -3,6 +3,7 @@ package com.crypto.cryptosim.controllers;
 import com.crypto.cryptosim.MarketManager;
 import com.crypto.cryptosim.TickManager;
 import com.crypto.cryptosim.ValuableCrypto;
+import com.crypto.cryptosim.models.Exchange;
 import com.crypto.cryptosim.models.User;
 import com.crypto.cryptosim.services.ExchangeDAO;
 import com.crypto.cryptosim.services.MessageDAO;
@@ -22,6 +23,80 @@ public class InstallationController extends AbstractController{
     }
     public InstallationController(){
         super();
+    }
+
+    private void install_exchange() throws SQLException {
+        Exchange e1 = new Exchange(
+                "https://s2.coinmarketcap.com/static/img/exchanges/64x64/270.png",
+                "Binance",
+                "http://binance.com",
+                13565453,
+                22132452,
+                35231456,
+                853
+        );
+        Exchange e2 = new Exchange(
+                "https://s2.coinmarketcap.com/static/img/exchanges/64x64/89.png",
+                "Coinbase Exchange",
+                "http://coinbase.com",
+                13456232,
+                23456142,
+                32456123,
+                912
+        );
+        Exchange e3 = new Exchange(
+                "https://s2.coinmarketcap.com/static/img/exchanges/64x64/524.png",
+                "FTX",
+                "http://ftx.com",
+                12465321,
+                19563216,
+                33456321,
+                755
+        );
+        Exchange e4 = new Exchange(
+                "https://s2.coinmarketcap.com/static/img/exchanges/64x64/24.png",
+                "Kraken",
+                "http://kraken.com",
+                94563211,
+                15654412,
+                26456321,
+                802
+        );
+        Exchange e5 = new Exchange(
+                "https://s2.coinmarketcap.com/static/img/exchanges/64x64/102.png",
+                "Huobi Global",
+                "http://huobi.com",
+                8456336,
+                2045632,
+                29456321,
+                605
+        );
+        Exchange e6 = new Exchange(
+                "https://s2.coinmarketcap.com/static/img/exchanges/64x64/630.png",
+                "Binance.US",
+                "http://binance.us",
+                82456321,
+                1956543,
+                25456321,
+                590
+        );
+        Exchange e7 = new Exchange(
+                "https://s2.coinmarketcap.com/static/img/exchanges/64x64/302.png",
+                "Gate.io",
+                "http://gate.io",
+                74563212,
+                15456321,
+                22654142,
+                555
+        );
+
+        er.add(e1);
+        er.add(e2);
+        er.add(e3);
+        er.add(e4);
+        er.add(e5);
+        er.add(e6);
+        er.add(e7);
     }
 
     /**
@@ -87,6 +162,8 @@ public class InstallationController extends AbstractController{
             c6.setSlug("BNB");
             c6.setValue(520);
             mm.add(c6);
+
+            install_exchange();
 
             for(int i = 0; i < 60; i++)
                 tm.nextTick();
