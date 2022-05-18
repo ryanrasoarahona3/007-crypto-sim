@@ -10,7 +10,7 @@
         </jsp:include>
     </div>
     <div class="col-md-9">
-        <jsp:include page="inc/pages/charts.jsp">
+        <jsp:include page="inc/pages/profile.jsp">
             <jsp:param name="page" value="profile"/>
         </jsp:include>
     </div>

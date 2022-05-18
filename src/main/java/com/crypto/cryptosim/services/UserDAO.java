@@ -102,6 +102,37 @@ public class UserDAO extends AbstractDAO {
         u.setId(auto_id);
     }
 
+    public void updateDb(User u) throws SQLException {
+        String sql = "UPDATE \"user\" SET user_email=?, user_pseudo=?, user_password=?, user_firstname=?, user_lastname=?, " +
+                "user_picture=?, user_birth=?, user_gender=?, user_phone=?, user_address=? WHERE user_id=?;";
+        PreparedStatement stmt = getConnection().prepareStatement(sql);
+        stmt.setString(1, u.getEmail());
+        stmt.setString(2, u.getPseudo());
+        stmt.setString(3, u.getPassword());
+        stmt.setString(4, u.getFirstname());
+        stmt.setString(5, u.getLastname());
+        stmt.setString(6, u.getPicture());
+
+        if(u.getBirth() != null)
+            stmt.setDate(7,
+                    java.sql.Date.valueOf(u.getBirth().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()));
+        else
+            stmt.setDate(7, null);
+
+        if(u.getGender() != null)
+            stmt.setObject(8, u.getGender(), java.sql.Types.OTHER);
+        else
+            stmt.setObject(8, Gender.UNKNOWN, java.sql.Types.OTHER);
+
+        stmt.setString(9, u.getPhone());
+        stmt.setString(10, u.getAddress());
+
+        // Id pour la recherche
+        stmt.setInt(11, u.getId());
+
+        stmt.execute();
+    }
+
     @Override
     public ArrayList getAll() throws SQLException {
         PreparedStatement stmt = null;

@@ -4,6 +4,7 @@ import com.crypto.cryptosim.MarketManager;
 import com.crypto.cryptosim.TickManager;
 import com.crypto.cryptosim.ValuableCrypto;
 import com.crypto.cryptosim.models.Exchange;
+import com.crypto.cryptosim.models.Gender;
 import com.crypto.cryptosim.models.User;
 import com.crypto.cryptosim.services.ExchangeDAO;
 import com.crypto.cryptosim.services.MessageDAO;
@@ -12,6 +13,9 @@ import com.crypto.cryptosim.services.UserDAO;
 
 import javax.servlet.ServletContext;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 
 public class InstallationController extends AbstractController{
     private static InstallationController instance = null;
@@ -181,6 +185,13 @@ public class InstallationController extends AbstractController{
             john.setLastname("Wilson");
             john.setEmail("john@site.com");
             john.setPassword("john");
+
+            john.setPseudo("");
+            john.setPicture("");
+            john.setBirth(Date.from(LocalDate.parse("1989-05-03").atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            john.setGender(Gender.MALE);
+            john.setPhone("123456789");
+            john.setAddress("1 Rue des érables");
             ur.add(john);
 
             trm.deposit(john, 10000);
