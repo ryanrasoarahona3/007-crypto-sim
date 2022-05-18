@@ -5,6 +5,7 @@ import com.crypto.cryptosim.TickManager;
 import com.crypto.cryptosim.ValuableCrypto;
 import com.crypto.cryptosim.models.User;
 import com.crypto.cryptosim.services.ExchangeDAO;
+import com.crypto.cryptosim.services.MessageDAO;
 import com.crypto.cryptosim.services.TransactionManager;
 import com.crypto.cryptosim.services.UserDAO;
 
@@ -35,13 +36,16 @@ public class InstallationController extends AbstractController{
         trm = TransactionManager.getInstance();
         er = ExchangeDAO.getInstance();
         mm = MarketManager.getInstance();
+        msr = MessageDAO.getInstance();
 
         trm.destroySQLTable();
         er.destroySQLTable();
         mm.destroySQLTable();
+        msr.destroySQLTable();
         ur.destroySQLTable();
 
         ur.buildSQLTable();
+        msr.buildSQLTable();
         mm.buildSQLTable();
         er.buildSQLTable();
         trm.buildSQLTable();

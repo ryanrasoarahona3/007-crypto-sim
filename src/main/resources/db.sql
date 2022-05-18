@@ -80,3 +80,16 @@ CREATE TABLE "transaction" (
 
 --
 -- SELECT
+
+
+--
+-- TECHNICAL SUPPORT
+DROP TABLE IF EXISTS "message";
+CREATE TABLE "message" (
+    message_id serial PRIMARY KEY,
+    message_request varchar(255),
+    message_title varchar(255),
+    message_body text,
+    message_sender INT NOT NULL,
+    CONSTRAINT fk_sender FOREIGN KEY (message_sender) REFERENCES "user"(user_id"")
+)

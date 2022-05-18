@@ -2,6 +2,7 @@ package com.crypto.cryptosim;
 
 import com.crypto.cryptosim.controllers.ChartsController;
 import com.crypto.cryptosim.services.ExchangeDAO;
+import com.crypto.cryptosim.services.MessageDAO;
 import com.crypto.cryptosim.services.TransactionManager;
 import com.crypto.cryptosim.services.UserDAO;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,6 +17,7 @@ public abstract class AbstractTest {
     protected ExchangeDAO er;
     protected TransactionManager trm;
     protected ChartsController cc;
+    protected MessageDAO msr;
 
     @BeforeEach
     protected void init() throws SQLException {
@@ -28,16 +30,20 @@ public abstract class AbstractTest {
         trm = TransactionManager.getInstance();
         er = ExchangeDAO.getInstance();
         mm = MarketManager.getInstance();
+        msr = MessageDAO.getInstance();
 
         trm.destroySQLTable();
         er.destroySQLTable();
         mm.destroySQLTable();
+        msr.destroySQLTable();
         ur.destroySQLTable();
+
 
         ur.buildSQLTable();
         mm.buildSQLTable();
         er.buildSQLTable();
         trm.buildSQLTable();
+        msr.buildSQLTable();
 
         tm = TickManager.getInstance();
 

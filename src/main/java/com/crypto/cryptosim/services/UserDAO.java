@@ -1,6 +1,7 @@
 package com.crypto.cryptosim.services;
 
 import com.crypto.cryptosim.AbstractDAO;
+import com.crypto.cryptosim.models.ExtendedUser;
 import com.crypto.cryptosim.models.Gender;
 import com.crypto.cryptosim.models.User;
 
@@ -50,7 +51,7 @@ public class UserDAO extends AbstractDAO {
 
     // TODO: a factoriser
     private User getFromResultSet(ResultSet rs) throws SQLException {
-        User u = new User();
+        User u = new ExtendedUser();
         u.setId(rs.getInt("user_id"));
         u.setEmail(rs.getString("user_email"));
         u.setPseudo(rs.getString("user_pseudo"));
