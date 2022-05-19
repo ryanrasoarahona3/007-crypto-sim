@@ -46,6 +46,7 @@ public class PriceCurve{
         ChartData output = new ChartData();
         ArrayList<Integer> prices = new ArrayList<>();
         ArrayList<String> labels = new ArrayList<>();
+        ArrayList<String> colors = new ArrayList<>();
 
         PreparedStatement stmt = getConnection().prepareStatement("SELECT price_date, price_value FROM price WHERE price_crypto=? ORDER BY price_date DESC LIMIT ?;");
         stmt.setInt(1, c.getId());
@@ -55,9 +56,18 @@ public class PriceCurve{
             // TODO: a mettre en français
             labels.add(rs.getDate("price_date").toString());
             prices.add(rs.getInt("price_value"));
+
+
+            int s = prices.size();
+            if(s == 1) // last element
+                 colors.add("orange");
+            else {
+                colors.add((prices.get(s-1)>prices.get(s-2))?"#00ff00":"#ff0000");
+            }
         }
         output.data = Utils.reverseArray(prices);
         output.labels = Utils.reverseArray(labels);
+        output.colors = Utils.reverseArray(colors);
         return output;
     }
 }

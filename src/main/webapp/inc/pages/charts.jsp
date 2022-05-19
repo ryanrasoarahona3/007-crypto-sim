@@ -77,6 +77,7 @@
 
 <script>
     window.addEventListener("load", ()=>{
+        Chart.defaults.elements.point.radius = 0;
         <%
             for(int i = 0; i < cryptos.size(); i++){
                 ValuableCrypto c = cryptos.get(i);
@@ -87,6 +88,7 @@
                     (()=>{ // JS Encapsulation
                         let data = <%= new Gson().toJson(chartData.data) %>;
                         let labels = <%= new Gson().toJson(chartData.labels) %>;
+                        let colors = <%= new Gson().toJson(chartData.colors) %>;
                         console.log("Hello world");
                         const ctx = document.getElementById('chart-<%= c.getId() %>-<%= numberOfDays %>').getContext('2d');
                         const myChart = new Chart(ctx, {
@@ -96,15 +98,15 @@
                                 datasets: [{
                                     label: 'USD',
                                     data: data,
-                                    borderColor: 'rgb(75, 192, 192)',
+                                    borderColor: colors,
                                     borderWidth: 1
                                 }]
                             },
                             options: {
                                 scales: {
-                                    y: {
+                                    /*y: {
                                         beginAtZero: true
-                                    }
+                                    }*/
                                 },
                                 plugins: {
                                     title: {
