@@ -9,6 +9,8 @@ public class HttpServletResponseMocker extends Response{
 
     private ArrayList<FakeError> errors = new ArrayList<>();
 
+    public String redirection = null;
+
     public void sendError(int code, String message){
         errors.add(new FakeError(code, message));
     }
@@ -19,5 +21,9 @@ public class HttpServletResponseMocker extends Response{
 
     public int getErrorLen(){
         return errors.size();
+    }
+
+    public void sendRedirect(String url){
+        redirection = url;
     }
 }

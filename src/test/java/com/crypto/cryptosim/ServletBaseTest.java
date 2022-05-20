@@ -36,11 +36,19 @@ public class ServletBaseTest extends BaseTest{
         return ((HttpServletResponseMocker)response).getErrors().get(i).toString();
     }
 
+    protected int getErrorLen(){
+        return ((HttpServletResponseMocker)response).getErrorLen();
+    }
+
     protected void patchParameter(String key, String value){
         when(request.getParameter(key)).thenReturn(value);
     }
 
     protected void patchSession(String key, String value){
         when(session.getAttribute(key)).thenReturn(value);
+    }
+
+    public String getRedirection(){
+        return ((HttpServletResponseMocker)response).redirection;
     }
 }
