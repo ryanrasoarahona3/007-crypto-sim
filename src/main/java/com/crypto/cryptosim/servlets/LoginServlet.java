@@ -19,7 +19,9 @@ public class LoginServlet extends HttpServlet {
             if(SessionManager.getInstance().login(request)){
                 response.sendRedirect("dashboard.jsp?message=logged-in");
             }else{
-                response.sendRedirect("login.jsp?errors=login-failed");
+                request.setAttribute("error", "CREDENTIAL_MISMATCHED");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+                //response.sendRedirect("login.jsp?errors=login-failed");
             }
         } catch (SQLException e) {
             e.printStackTrace(response.getWriter());

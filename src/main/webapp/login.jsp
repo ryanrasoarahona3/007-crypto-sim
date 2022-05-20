@@ -10,6 +10,13 @@
             Login to the best crypto application simulator
         </p>
         <form method="post" action="login">
+            <!-- TODO: Use Enum or Class -->
+            <!-- TODO: Use errors instead of error -->
+            <% if(request.getAttribute("error") == "CREDENTIAL_MISMATCHED") { %>
+                <div class="mb-3 text-danger">
+                    <p>Authentification error, please retry again</p>
+                </div>
+            <% } %>
             <div class="mb-3">
                 <label for="email" class="form-label">Email address</label>
                 <input type="email" class="form-control" id="email" name="email">

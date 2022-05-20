@@ -39,4 +39,14 @@ public class LoginServletTest extends ServletBaseTest {
         assertEquals(0, getErrorLen());
         assertThat(getRedirection(), containsString("dashboard"));
     }
+
+    @Test
+    public void incorrectPasswordLogin() throws ServletException, IOException {
+        patchParameter("email", "john@gmail.com");
+        patchParameter("password", "password2");
+
+        new LoginServlet().doPost(request, response);
+
+        assertEquals(dispatcher.resource, "login.jsp");
+    }
 }

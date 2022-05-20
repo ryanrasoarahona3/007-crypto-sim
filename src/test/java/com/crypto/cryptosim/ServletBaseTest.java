@@ -1,8 +1,10 @@
 package com.crypto.cryptosim;
 
 import com.crypto.cryptosim.mockers.HttpServletResponseMocker;
+import com.crypto.cryptosim.mockers.RequestDispatcherMocker;
 import org.junit.jupiter.api.BeforeEach;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +19,7 @@ public class ServletBaseTest extends BaseTest{
     protected HttpServletResponse response;
     protected ServletContext context;
     protected HttpSession session;
+    protected RequestDispatcherMocker dispatcher;
 
     @BeforeEach
     public void init() throws SQLException {
@@ -30,12 +33,25 @@ public class ServletBaseTest extends BaseTest{
         session = mock(HttpSession.class);
         when(request.getSession()).thenReturn(session);
         when(request.getServletContext()).thenReturn(context);
+        when(request.getRequestDispatcher(anyString())).thenAnswer(I -> {
+            dispatcher = new RequestDispatcherMocker((String)I.getArgumentAt(0, String.class));
+            return dispatcher;
+        });
     }
 
+    /**
+     *
+     * @deprecated Shouldn't be used
+     */
     protected String getError(int i){
         return ((HttpServletResponseMocker)response).getErrors().get(i).toString();
     }
 
+
+    /**
+     *
+     * @deprecated Shouldn't be used
+     */
     protected int getErrorLen(){
         return ((HttpServletResponseMocker)response).getErrorLen();
     }
