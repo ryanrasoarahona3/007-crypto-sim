@@ -102,6 +102,12 @@ public class DatabaseManager {
     // TODO: getter&Setter could be used
     public void init(ServletContext context) throws SQLException{
         InputStream is = context.getResourceAsStream("/WEB-INF/db.properties");
+        if(is == null){
+            // Pour les cas des test
+            // Le paramètre ServletContext a été falsifié
+            init();
+            return;
+        }
         Properties p = new Properties();
         try {
             // Quelques valeurs par défaut

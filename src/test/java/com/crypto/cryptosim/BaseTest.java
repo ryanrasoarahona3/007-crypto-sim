@@ -1,18 +1,21 @@
 package com.crypto.cryptosim;
 
 import com.crypto.cryptosim.controllers.ChartsController;
+import com.crypto.cryptosim.mockers.HttpServletResponseMocker;
 import com.crypto.cryptosim.services.ExchangeDAO;
 import com.crypto.cryptosim.services.MessageDAO;
 import com.crypto.cryptosim.services.TransactionManager;
 import com.crypto.cryptosim.services.UserDAO;
 import org.junit.jupiter.api.BeforeEach;
+import org.mockito.Mockito;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 
-/**
- * @deprecated Use BaseTest Instead
- */
-public abstract class AbstractTest {
+public class BaseTest extends Mockito {
     protected DatabaseManager dm;
     protected TickManager tm;
     protected MarketManager mm;
