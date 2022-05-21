@@ -6,6 +6,7 @@ import com.crypto.cryptosim.services.UserDAO;
 import com.crypto.cryptosim.structures.Info;
 import com.crypto.cryptosim.structures.InputError;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,14 +17,20 @@ import java.sql.SQLException;
 @WebServlet(name="signupServlet", value="/signup")
 public class SignupServlet extends BaseServlet {
 
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws  IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         // Les entrées utilisateurs
         User u = new User();
         u.setFirstname(request.getParameter("firstname"));
         u.setLastname(request.getParameter("lastname"));
         u.setEmail(request.getParameter("email"));
-        u.setPassword(request.getParameter("password"));
+
+        // Password mismatched
+        if(request.getParameter("password") == request.getParameter("passwordConfirm"))
+            u.setPassword(request.getParameter("password"));
+        else
+            addInputError(InputError.SIGNUP_PASSWORD_MISMATCHED);
+
 
         // IF there is no errors, then append it to the database
         if(getErrorLen() == 0){
@@ -41,6 +48,9 @@ public class SignupServlet extends BaseServlet {
         if(getErrorLen() == 0) {
             addInfo(Info.SIGNUP_ACCOUNT_CREATED);
             response.sendRedirect("login.jsp");
+        }else{
+            request.setAttribute("errors", getErrors());
+            request.getRequestDispatcher("signup.jsp").forward(request, response);
         }
 
         /*

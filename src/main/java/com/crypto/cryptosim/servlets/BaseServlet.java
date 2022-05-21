@@ -39,6 +39,10 @@ public class BaseServlet extends HttpServlet {
         return immediateInfo.size();
     }
 
+    protected ArrayList<Info> getInfos(){
+        return immediateInfo;
+    }
+
     public BaseServlet(){
         inputErrors = new ArrayList<>();
         immediateInfo = new ArrayList<>();
