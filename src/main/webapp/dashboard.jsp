@@ -3,6 +3,11 @@
 <%@ page import="com.crypto.cryptosim.services.TransactionManager" %>
 <%@ page import="com.crypto.cryptosim.models.User" %>
 <%@ page import="com.crypto.cryptosim.DatabaseManager" %>
+<%@ page import="com.crypto.cryptosim.ValuableCrypto" %>
+<%@ page import="com.crypto.cryptosim.MarketManager" %>
+<%@ page import="com.crypto.cryptosim.structures.ChartData" %>
+<%@ page import="com.crypto.cryptosim.PriceCurve" %>
+<%@ page import="com.google.gson.Gson" %>
 
 <%
     DatabaseManager.getInstance().init(request.getServletContext());
@@ -13,6 +18,7 @@
     <jsp:param name="page" value="dashboard"/>
 </jsp:include>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
 <div class="row">
     <div class="col-md-3">
         <jsp:include page="inc/menu.jsp">
@@ -68,7 +74,47 @@
         </div>
         <div class="card my-2">
             <div class="card-body">
-                Bitcoin chart
+                <%
+                    ValuableCrypto c = MarketManager.getInstance().cryptoByName("Bitcoin");
+                    ChartData chartData = PriceCurve.getInstance().getLastNDaysVariation(c, 30);
+                %>
+                <h3>Crypto du Jour : Le Bitcoin</h3>
+                <canvas id="chart-<%= c.getId() %>-30" width="350" height="200"></canvas>
+                <script>
+                    window.addEventListener("load", ()=> {
+                        Chart.defaults.elements.point.radius = 2;
+
+                        let data = <%= new Gson().toJson(chartData.data) %>;
+                        let labels = <%= new Gson().toJson(chartData.labels) %>;
+                        let colors = <%= new Gson().toJson(chartData.colors) %>;
+                        const ctx = document.getElementById('chart-<%= c.getId() %>-30').getContext('2d');
+                        const myChart = new Chart(ctx, {
+                            type: 'line',
+                            data: {
+                                labels: labels,
+                                datasets: [{
+                                    label: 'BTC-USD',
+                                    data: data,
+                                    borderColor: colors,
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                scales: {
+                                    /*y: {
+                                        beginAtZero: true
+                                    }*/
+                                },
+                                plugins: {
+                                    title: {
+                                        display: true,
+                                        text: "Le Bitcoin durant les 30 derniers jours"
+                                    }
+                                }
+                            }
+                        });
+                    })
+                </script>
             </div>
         </div>
         <div class="card my-2">
