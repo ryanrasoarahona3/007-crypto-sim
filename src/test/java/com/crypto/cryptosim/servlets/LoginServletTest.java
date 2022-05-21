@@ -1,5 +1,6 @@
-package com.crypto.cryptosim;
+package com.crypto.cryptosim.servlets;
 
+import com.crypto.cryptosim.ServletBaseTest;
 import com.crypto.cryptosim.models.User;
 import com.crypto.cryptosim.services.UserDAO;
 import com.crypto.cryptosim.servlets.LoginServlet;

@@ -50,11 +50,13 @@ public class ServletBaseTest extends BaseTest{
 
     /**
      *
-     * @deprecated Shouldn't be used
+     * @deprecated Use errorLen instead
      */
     protected int getErrorLen(){
         return ((HttpServletResponseMocker)response).getErrorLen();
     }
+
+
 
     protected void patchParameter(String key, String value){
         when(request.getParameter(key)).thenReturn(value);

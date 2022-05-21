@@ -3,6 +3,8 @@ package com.crypto.cryptosim.servlets;
 import com.crypto.cryptosim.DatabaseManager;
 import com.crypto.cryptosim.models.User;
 import com.crypto.cryptosim.services.UserDAO;
+import com.crypto.cryptosim.structures.Info;
+import com.crypto.cryptosim.structures.InputError;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,7 +14,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 @WebServlet(name="signupServlet", value="/signup")
-public class SignupServlet extends HttpServlet {
+public class SignupServlet extends BaseServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws  IOException {
 
@@ -22,6 +24,26 @@ public class SignupServlet extends HttpServlet {
         u.setLastname(request.getParameter("lastname"));
         u.setEmail(request.getParameter("email"));
         u.setPassword(request.getParameter("password"));
+
+        // IF there is no errors, then append it to the database
+        if(getErrorLen() == 0){
+            try {
+                DatabaseManager.getInstance().init(request.getServletContext());
+                UserDAO.getInstance().add(u);
+                if(u.getId() == 0){
+                    addInputError(InputError.SIGNUP_DATABASE_INSERTION_ERROR);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if(getErrorLen() == 0) {
+            addInfo(Info.SIGNUP_ACCOUNT_CREATED);
+            response.sendRedirect("login.jsp");
+        }
+
+        /*
         try {
             DatabaseManager.getInstance().init(request.getServletContext());
             UserDAO.getInstance().add(u);
@@ -35,5 +57,7 @@ public class SignupServlet extends HttpServlet {
         }else{
             response.sendRedirect("signup.jsp?errors=subscription-failed");
         }
+
+         */
     }
 }
