@@ -14,7 +14,7 @@ public class DatabaseManager {
     private static DatabaseManager instance = null;
 
     // These variables should be configured inside environement file
-    private static String url = "jdbc:postgresql://localhost:5433/";
+    private static String url = "jdbc:postgresql://localhost:5432/";
     private static String dbName =  "crypto-test";
     private static String urlParams = "?useUnicode=yes&characterEncoding=utf8";
     private static String driverName = "org.postgresql.Driver";
