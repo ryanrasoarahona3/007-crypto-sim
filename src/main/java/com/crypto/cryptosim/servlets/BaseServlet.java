@@ -11,6 +11,11 @@ public class BaseServlet extends HttpServlet {
     private ArrayList<InputError> inputErrors;
     private ArrayList<Info> immediateInfo;
 
+    public void init(){
+        inputErrors = new ArrayList<>();
+        immediateInfo = new ArrayList<>();
+    }
+
     protected void addInputError(InputError e){
         inputErrors.add(e);
     }

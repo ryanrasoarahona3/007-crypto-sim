@@ -20,7 +20,9 @@
         <form method="post" action="signup">
             <div class="mb-3">
                 <label for="firstname" class="form-label">Firstname</label>
-                <input type="text" class="form-control" id="firstname" name="firstname">
+                <input type="text" class="form-control" id="firstname" name="firstname"
+                    value="<%= (request.getParameter("firstname")!=null)?request.getParameter("firstname"):""%>"
+                >
                 <% if(errors.contains(InputError.SIGNUP_FIRSTNAME_REQUIRED)) { %>
                 <p class="text-danger" style="font-size: .8em;">
                     Required field
@@ -29,7 +31,9 @@
             </div>
             <div class="mb-3">
                 <label for="lastname" class="form-label">Lastname</label>
-                <input type="text" class="form-control" id="lastname" name="lastname">
+                <input type="text" class="form-control" id="lastname" name="lastname"
+                    value="<%= (request.getParameter("lastname")!=null)?request.getParameter("lastname"):""%>"
+                >
                 <% if(errors.contains(InputError.SIGNUP_LASTNAME_REQUIRED)) { %>
                 <p class="text-danger" style="font-size: .8em;">
                     Required field
@@ -38,7 +42,9 @@
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="email" name="email">
+                <input type="email" class="form-control" id="email" name="email"
+                    value="<%= (request.getParameter("email")!=null)?request.getParameter("email"):""%>"
+                >
                 <% if(errors.contains(InputError.SIGNUP_EMAIL_INVALID)) { %>
                 <p class="text-danger" style="font-size: .8em;">
                     Invalid email adress

@@ -69,6 +69,11 @@ public class SignupServlet extends BaseServlet {
             addInfo(Info.SIGNUP_ACCOUNT_CREATED);
             response.sendRedirect("login.jsp");
         }else{
+            // TODO : redirect parameters to attribute for error display
+            request.setAttribute("firstname", request.getParameter("firstname"));
+            request.setAttribute("lastname", request.getParameter("lastname"));
+            request.setAttribute("email", request.getParameter("email"));
+
             request.setAttribute("errors", getErrors());
             request.getRequestDispatcher("signup.jsp").forward(request, response);
         }
