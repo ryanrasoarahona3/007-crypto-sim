@@ -21,8 +21,19 @@ public class SignupServlet extends BaseServlet {
 
         // Les entrées utilisateurs
         User u = new User();
-        u.setFirstname(request.getParameter("firstname"));
-        u.setLastname(request.getParameter("lastname"));
+
+        // Firstname
+        if(request.getParameter("firstname") != "")
+            u.setFirstname(request.getParameter("firstname"));
+        else
+            addInputError(InputError.SIGNUP_FIRSTNAME_REQUIRED);
+
+        // Lastname
+        if(request.getParameter("lastname") != "")
+            u.setLastname(request.getParameter("lastname"));
+        else
+            addInputError(InputError.SIGNUP_LASTNAME_REQUIRED);
+
         u.setEmail(request.getParameter("email"));
 
         // Password mismatched

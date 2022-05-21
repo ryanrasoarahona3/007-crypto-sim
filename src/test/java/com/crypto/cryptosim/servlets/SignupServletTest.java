@@ -53,5 +53,21 @@ public class SignupServletTest extends ServletBaseTest {
         assertThat(dispatcher.resource, containsString("signup"));
     }
 
+    @Test
+    public void firstnameRequiredTest() throws ServletException, IOException {
+        patchParameter("firstname", "");
 
+        s.doPost(request, response);
+        assertTrue(s.haveInputError(InputError.SIGNUP_FIRSTNAME_REQUIRED));
+        assertThat(dispatcher.resource, containsString("signup"));
+    }
+
+    @Test
+    public void lastNameRequiredTest() throws ServletException, IOException {
+        patchParameter("lastname", "");
+
+        s.doPost(request, response);
+        assertTrue(s.haveInputError(InputError.SIGNUP_LASTNAME_REQUIRED));
+        assertThat(dispatcher.resource, containsString("signup"));
+    }
 }
