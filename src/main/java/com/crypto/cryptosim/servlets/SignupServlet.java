@@ -19,6 +19,7 @@ import java.sql.SQLException;
 public class SignupServlet extends BaseServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        resetVars();
 
         // Les entrées utilisateurs
         User u = new User();
@@ -56,11 +57,19 @@ public class SignupServlet extends BaseServlet {
         if(getErrorLen() == 0){
             try {
                 DatabaseManager.getInstance().init(request.getServletContext());
-                UserDAO.getInstance().add(u);
+
+                // Check if email exists
+                if(UserDAO.getInstance().searchByEmail(u.getEmail()) != null)
+                    addInputError(InputError.SIGNUP_EMAIL_EXISTS);
+                else
+                    UserDAO.getInstance().add(u);
+
                 if(u.getId() == 0){
                     addInputError(InputError.SIGNUP_DATABASE_INSERTION_ERROR);
                 }
             } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

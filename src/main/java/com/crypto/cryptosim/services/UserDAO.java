@@ -153,12 +153,12 @@ public class UserDAO extends AbstractDAO {
         return rs.next();
     }
 
-    public User searchByEmail(String email) throws Exception {
+    public User searchByEmail(String email) throws SQLException {
         PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM \"user\" WHERE user_email=?");
         stmt.setString(1, email);
         ResultSet rs = stmt.executeQuery();
         if(!rs.next()) {
-            throw new Exception("User not found in database, everything is ok");
+            return null;
         }
         return getFromResultSet(rs);
     }

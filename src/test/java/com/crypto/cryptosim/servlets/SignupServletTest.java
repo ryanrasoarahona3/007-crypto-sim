@@ -3,6 +3,7 @@ package com.crypto.cryptosim.servlets;
 import com.crypto.cryptosim.ServletBaseTest;
 import com.crypto.cryptosim.mockers.HttpServletResponseMocker;
 import com.crypto.cryptosim.models.User;
+import com.crypto.cryptosim.services.UserDAO;
 import com.crypto.cryptosim.structures.Info;
 import com.crypto.cryptosim.structures.InputError;
 import org.junit.jupiter.api.BeforeEach;
@@ -101,6 +102,20 @@ public class SignupServletTest extends ServletBaseTest {
 
         s.doPost(request, response);
         assertFalse(s.haveInputError(InputError.SIGNUP_LASTNAME_REQUIRED));
+        assertThat(dispatcher.resource, containsString("signup"));
+
+    }
+
+    @Test
+    public void emailExistsErrorTest() throws ServletException, IOException, SQLException {
+        User u = new User();
+        u.setEmail("john@hotmail.fr");
+        UserDAO.getInstance().add(u);
+
+        patchParameter("email", "john@hotmail.fr");
+        s.doPost(request, response);
+
+        assertTrue(s.haveInputError(InputError.SIGNUP_EMAIL_EXISTS));
         assertThat(dispatcher.resource, containsString("signup"));
 
     }

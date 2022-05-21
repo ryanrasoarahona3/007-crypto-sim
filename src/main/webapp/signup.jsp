@@ -50,6 +50,11 @@
                     Invalid email adress
                 </p>
                 <% } %>
+                <% if(errors.contains(InputError.SIGNUP_EMAIL_EXISTS)) { %>
+                <p class="text-danger" style="font-size: .8em;">
+                    An account with this email address already exists
+                </p>
+                <% } %>
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>

@@ -11,7 +11,7 @@ public class BaseServlet extends HttpServlet {
     private ArrayList<InputError> inputErrors;
     private ArrayList<Info> immediateInfo;
 
-    public void init(){
+    public void resetVars(){
         inputErrors = new ArrayList<>();
         immediateInfo = new ArrayList<>();
     }
