@@ -23,7 +23,7 @@
                 <input type="text" class="form-control" id="firstname" name="firstname">
                 <% if(errors.contains(InputError.SIGNUP_FIRSTNAME_REQUIRED)) { %>
                 <p class="text-danger" style="font-size: .8em;">
-                    Password doesn't match
+                    Required field
                 </p>
                 <% } %>
             </div>
@@ -32,7 +32,7 @@
                 <input type="text" class="form-control" id="lastname" name="lastname">
                 <% if(errors.contains(InputError.SIGNUP_LASTNAME_REQUIRED)) { %>
                 <p class="text-danger" style="font-size: .8em;">
-                    Password doesn't match
+                    Required field
                 </p>
                 <% } %>
             </div>
@@ -41,7 +41,7 @@
                 <input type="email" class="form-control" id="email" name="email">
                 <% if(errors.contains(InputError.SIGNUP_EMAIL_INVALID)) { %>
                 <p class="text-danger" style="font-size: .8em;">
-                    Password doesn't match
+                    Invalid email adress
                 </p>
                 <% } %>
             </div>
@@ -50,7 +50,7 @@
                 <input type="password" class="form-control" id="password" name="password">
                 <% if(errors.contains(InputError.SIGNUP_PASSWORD_TOO_SHORT)) { %>
                 <p class="text-danger" style="font-size: .8em;">
-                    Password doesn't match
+                    Password should contain at least 5 characters
                 </p>
                 <% } %>
             </div>

@@ -1,6 +1,7 @@
 package com.crypto.cryptosim.servlets;
 
 import com.crypto.cryptosim.DatabaseManager;
+import com.crypto.cryptosim.Utils;
 import com.crypto.cryptosim.models.User;
 import com.crypto.cryptosim.services.UserDAO;
 import com.crypto.cryptosim.structures.Info;
@@ -23,21 +24,29 @@ public class SignupServlet extends BaseServlet {
         User u = new User();
 
         // Firstname
-        if(request.getParameter("firstname") != "")
+        if(!request.getParameter("firstname").equals(""))
             u.setFirstname(request.getParameter("firstname"));
         else
             addInputError(InputError.SIGNUP_FIRSTNAME_REQUIRED);
 
         // Lastname
-        if(request.getParameter("lastname") != "")
+        if(!request.getParameter("lastname").equals(""))
             u.setLastname(request.getParameter("lastname"));
         else
             addInputError(InputError.SIGNUP_LASTNAME_REQUIRED);
 
-        u.setEmail(request.getParameter("email"));
+        // Email
+        if(Utils.isValidEmail(request.getParameter("email")))
+            u.setEmail(request.getParameter("email"));
+        else
+            addInputError(InputError.SIGNUP_EMAIL_INVALID);
+
+        // Password length
+        if(request.getParameter("password").length() < 5)
+            addInputError(InputError.SIGNUP_PASSWORD_TOO_SHORT);
 
         // Password mismatched
-        if(request.getParameter("password") == request.getParameter("passwordConfirm"))
+        if(request.getParameter("password").equals(request.getParameter("passwordConfirm")))
             u.setPassword(request.getParameter("password"));
         else
             addInputError(InputError.SIGNUP_PASSWORD_MISMATCHED);

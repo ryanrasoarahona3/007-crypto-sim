@@ -70,4 +70,33 @@ public class SignupServletTest extends ServletBaseTest {
         assertTrue(s.haveInputError(InputError.SIGNUP_LASTNAME_REQUIRED));
         assertThat(dispatcher.resource, containsString("signup"));
     }
+
+    @Test
+    public void emailTest() throws ServletException, IOException {
+        patchParameter("email", "johnny.depp.com");
+
+        s.doPost(request, response);
+        assertTrue(s.haveInputError(InputError.SIGNUP_EMAIL_INVALID));
+        assertThat(dispatcher.resource, containsString("signup"));
+    }
+
+    @Test
+    public void passwordTest() throws ServletException, IOException {
+        patchParameter("password", "jdk");
+        patchParameter("passwordConfirm", "jdk");
+
+        s.doPost(request, response);
+        assertTrue(s.haveInputError(InputError.SIGNUP_PASSWORD_TOO_SHORT));
+        assertThat(dispatcher.resource, containsString("signup"));
+    }
+
+    @Test
+    public void shouldShowError() throws ServletException, IOException {
+        patchParameter("email", "johnny.depp.com");
+
+        s.doPost(request, response);
+        assertFalse(s.haveInputError(InputError.SIGNUP_LASTNAME_REQUIRED));
+        assertThat(dispatcher.resource, containsString("signup"));
+
+    }
 }
