@@ -49,6 +49,7 @@ public class SignupServletTest extends ServletBaseTest {
 
         s.doPost(request, response);
 
+        assertEquals(1, s.getErrorLen());
         assertTrue(s.haveInputError(InputError.SIGNUP_PASSWORD_MISMATCHED));
         assertThat(dispatcher.resource, containsString("signup"));
     }
@@ -58,6 +59,7 @@ public class SignupServletTest extends ServletBaseTest {
         patchParameter("firstname", "");
 
         s.doPost(request, response);
+        assertEquals(1, s.getErrorLen());
         assertTrue(s.haveInputError(InputError.SIGNUP_FIRSTNAME_REQUIRED));
         assertThat(dispatcher.resource, containsString("signup"));
     }
@@ -67,6 +69,7 @@ public class SignupServletTest extends ServletBaseTest {
         patchParameter("lastname", "");
 
         s.doPost(request, response);
+        assertEquals(1, s.getErrorLen());
         assertTrue(s.haveInputError(InputError.SIGNUP_LASTNAME_REQUIRED));
         assertThat(dispatcher.resource, containsString("signup"));
     }
@@ -76,6 +79,7 @@ public class SignupServletTest extends ServletBaseTest {
         patchParameter("email", "johnny.depp.com");
 
         s.doPost(request, response);
+        assertEquals(1, s.getErrorLen());
         assertTrue(s.haveInputError(InputError.SIGNUP_EMAIL_INVALID));
         assertThat(dispatcher.resource, containsString("signup"));
     }
@@ -86,6 +90,7 @@ public class SignupServletTest extends ServletBaseTest {
         patchParameter("passwordConfirm", "jdk");
 
         s.doPost(request, response);
+        assertEquals(1, s.getErrorLen());
         assertTrue(s.haveInputError(InputError.SIGNUP_PASSWORD_TOO_SHORT));
         assertThat(dispatcher.resource, containsString("signup"));
     }
