@@ -65,6 +65,8 @@ public class SignupServlet extends BaseServlet {
             }
         }
 
+        request.setAttribute("errors", getErrors());
+        request.getSession().setAttribute("infos", getInfos());
         if(getErrorLen() == 0) {
             addInfo(Info.SIGNUP_ACCOUNT_CREATED);
             response.sendRedirect("login.jsp");
@@ -74,7 +76,6 @@ public class SignupServlet extends BaseServlet {
             request.setAttribute("lastname", request.getParameter("lastname"));
             request.setAttribute("email", request.getParameter("email"));
 
-            request.setAttribute("errors", getErrors());
             request.getRequestDispatcher("signup.jsp").forward(request, response);
         }
 

@@ -1,11 +1,28 @@
+<%@ page import="com.crypto.cryptosim.structures.InputError" %>
+<%@ page import="com.crypto.cryptosim.structures.Info" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="inc/header.jsp">
     <jsp:param name="page" value="login"/>
 </jsp:include>
-
+<%
+    // TODO: combiner les deux méthodes
+    ArrayList<InputError> errors = (ArrayList<InputError>) request.getAttribute("errors");
+    ArrayList<Info> infos = (ArrayList<Info>) request.getSession().getAttribute("infos");
+    request.getSession().setAttribute("infos", null);
+    if(errors == null) errors = new ArrayList<>();
+    if(infos == null) infos = new ArrayList<>();
+%>
 <div class="card my-5">
     <div class="card-body">
         <h2>Crypto simulation - Login</h2>
+        <% if(infos.contains(Info.SIGNUP_ACCOUNT_CREATED)){ %>
+            <div class="my-3 text-success">
+                <p>
+                    Your account is successfully created
+                </p>
+            </div>
+        <% } %>
         <p>
             Login to the best crypto application simulator
         </p>
