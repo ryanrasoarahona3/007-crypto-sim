@@ -20,11 +20,18 @@
     <div class="card-body">
         <h2>Crypto simulation - Login</h2>
         <% if(infos.contains(Info.SIGNUP_ACCOUNT_CREATED)){ %>
-            <div class="my-3 text-success">
-                <p>
-                    Your account is successfully created
-                </p>
-            </div>
+        <div class="my-3 text-success">
+            <p>
+                Your account is successfully created
+            </p>
+        </div>
+        <% } %>
+        <% if(infos.contains(Info.PASSUPDATE_SUCCESS)){ %>
+        <div class="my-3 text-success">
+            <p>
+                Your password has been updated
+            </p>
+        </div>
         <% } %>
         <% if(session_errors.contains(InputError.SESSION_EXPIRED)){ %>
         <div class="my-3 text-danger">

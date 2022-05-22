@@ -7,6 +7,8 @@ public enum Info {
 
     //
     DEPOSIT_DONE,
-    WITHDRAWAL_DONE
+    WITHDRAWAL_DONE,
+
+    PASSUPDATE_SUCCESS
 
 }

@@ -4,6 +4,9 @@ import com.crypto.cryptosim.structures.Info;
 import com.crypto.cryptosim.structures.InputError;
 
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -51,5 +54,12 @@ public class BaseServlet extends HttpServlet {
     public BaseServlet(){
         inputErrors = new ArrayList<>();
         immediateInfo = new ArrayList<>();
+    }
+
+    //
+    protected void sendRedirect(HttpServletRequest request, HttpServletResponse response, String dest) throws IOException {
+        request.getSession().setAttribute("errors", getErrors());
+        request.getSession().setAttribute("infos", getInfos());
+        response.sendRedirect(dest);
     }
 }
