@@ -6,10 +6,12 @@
     <jsp:param name="page" value="login"/>
 </jsp:include>
 <%
-    // TODO: combiner les deux méthodes
+    // TODO: combiner les méthodes suivantes
     ArrayList<InputError> errors = (ArrayList<InputError>) request.getAttribute("errors");
     ArrayList<Info> infos = (ArrayList<Info>) request.getSession().getAttribute("infos");
+    ArrayList<InputError> session_errors = (ArrayList<InputError>) request.getSession().getAttribute("errors");
     request.getSession().setAttribute("infos", null);
+    request.getSession().setAttribute("errors", null);
     if(errors == null) errors = new ArrayList<>();
     if(infos == null) infos = new ArrayList<>();
 %>
@@ -22,6 +24,13 @@
                     Your account is successfully created
                 </p>
             </div>
+        <% } %>
+        <% if(session_errors.contains(InputError.SESSION_EXPIRED)){ %>
+        <div class="my-3 text-danger">
+            <p>
+                Session expired, please log in to continue
+            </p>
+        </div>
         <% } %>
         <p>
             Login to the best crypto application simulator

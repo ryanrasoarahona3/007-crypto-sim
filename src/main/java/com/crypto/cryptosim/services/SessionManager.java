@@ -69,7 +69,7 @@ public class SessionManager {
         session.invalidate();
     }
 
-    public User getActiveUser(HttpServletRequest request) throws Exception {
+    public User getActiveUser(HttpServletRequest request) throws SQLException {
         if(activeUser != null)
             return activeUser;
         else{
