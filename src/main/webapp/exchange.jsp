@@ -24,10 +24,7 @@
         <div class="my-5">
             <div class="row">
                 <div class="col-md-6">
-                    <h2>Les sites exchanges</h2>
-                    <p>
-                        Ce tableau résume les principaux sites d'exchanges utilisés pour les transactions des cryptos.
-                    </p>
+                    <h2>Exchanges</h2>
                 </div>
                 <div class="col-md-6">
                     <p>
@@ -61,8 +58,8 @@
                     <th scope="row"><%= e.getId() %></th>
                     <td><a href="<%= e.getUrl()%>"></a><img width="32" class="mx-2" src="<%= e.getLogo()%>"/> <%= e.getName() %> </a></td>
                     <td><%= e.getVolDay() %> €</td>
-                    <td><%= e.getVolDay() %> €</td>
-                    <td><%= e.getVolDay() %> €</td>
+                    <td><%= e.getVolWeek() %> €</td>
+                    <td><%= e.getVolMonth() %> €</td>
                     <td><%= e.getVolLiquidity()%></td>
                 </tr>
                 <% } %>
