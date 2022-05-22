@@ -20,5 +20,8 @@ public enum InputError {
     // Pour la modification du mot de passe
     PASSUPDATE_INCORRECT_PASSWORD,
     PASSUPDATE_PASSWORD_TOO_SHORT,
-    PASSUPDATE_PASSWORD_MISMATCHED
+    PASSUPDATE_PASSWORD_MISMATCHED,
+
+    // Pour la suppression du compte
+    ACCDELETION_INCORRECT_PASSWORD
 }

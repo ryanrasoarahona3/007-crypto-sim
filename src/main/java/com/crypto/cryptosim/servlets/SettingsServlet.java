@@ -20,9 +20,13 @@ public class SettingsServlet extends BaseServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         resetVars();
 
+        String action = request.getParameter("action");
+
         String existingPassword = request.getParameter("existingPassword");
         String newPassword = request.getParameter("newPassword");
         String newPasswordConfirm = request.getParameter("newPasswordConfirm");
+
+        String password = request.getParameter("password");
 
         User user = null;
         try {
@@ -38,26 +42,43 @@ public class SettingsServlet extends BaseServlet {
             sendRedirect(request, response, "login.jsp");
             return;
         }
-        if(!user.getPassword().equals(existingPassword))
-            addInputError(InputError.PASSUPDATE_INCORRECT_PASSWORD);
 
-        if(newPassword.length() < 5)
-            addInputError(InputError.PASSUPDATE_PASSWORD_TOO_SHORT);
-
-        if(!newPassword.equals(newPasswordConfirm))
-            addInputError(InputError.PASSUPDATE_PASSWORD_MISMATCHED);
-
-        if(getErrorLen() > 0)
-            sendRedirect(request, response, "settings.jsp");
-        else {
-            try {
-                user.setPassword(newPassword);
-                UserDAO.getInstance().updateDb(user);
-            } catch (SQLException e) {
-                e.printStackTrace();
+        if(action.equals("passwordUpdate")) {
+            if (!user.getPassword().equals(existingPassword))
+                addInputError(InputError.PASSUPDATE_INCORRECT_PASSWORD);
+            if (newPassword.length() < 5)
+                addInputError(InputError.PASSUPDATE_PASSWORD_TOO_SHORT);
+            if (!newPassword.equals(newPasswordConfirm))
+                addInputError(InputError.PASSUPDATE_PASSWORD_MISMATCHED);
+            if (getErrorLen() > 0)
+                sendRedirect(request, response, "settings.jsp");
+            else {
+                try {
+                    user.setPassword(newPassword);
+                    UserDAO.getInstance().updateDb(user);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                addInfo(Info.PASSUPDATE_SUCCESS);
+                sendRedirect(request, response, "login.jsp");
             }
-            addInfo(Info.PASSUPDATE_SUCCESS);
-            sendRedirect(request, response, "login.jsp");
+        }
+
+        if(action.equals("accountDeletion")){
+            if(!user.getPassword().equals(password))
+                addInputError(InputError.ACCDELETION_INCORRECT_PASSWORD);
+            if (getErrorLen() > 0)
+                sendRedirect(request, response, "settings.jsp");
+            else {
+                /*try {
+                    // TODO: Should create this function
+                    // UserDAO.getInstance().dropUser();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }*/
+                addInfo(Info.ACCDELETION_SUCCESS);
+                sendRedirect(request, response, "login.jsp");
+            }
         }
     }
 }

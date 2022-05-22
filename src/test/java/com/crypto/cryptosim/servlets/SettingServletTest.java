@@ -38,6 +38,7 @@ public class SettingServletTest extends ServletBaseTest {
     @Test
     public void expiredPostSessionTest() throws IOException {
 
+        patchParameter("action", "passwordUpdate");
         s.doPost(request, response);
         assertEquals(1, s.getErrorLen());
         assertTrue(s.haveInputError(InputError.SESSION_EXPIRED));
@@ -48,6 +49,7 @@ public class SettingServletTest extends ServletBaseTest {
     public void incorrectPasswordTest() throws IOException {
         patchSession("email", u.getEmail());
         patchSession("password", u.getPassword());
+        patchParameter("action", "passwordUpdate");
         patchParameter("existingPassword", "incorrectPass");
         patchParameter("newPassword", "mynewpassword");
         patchParameter("newPasswordConfirm", "mynewpassword");
@@ -61,6 +63,7 @@ public class SettingServletTest extends ServletBaseTest {
     public void incorrectPassConfirm() throws IOException {
         patchSession("email", u.getEmail());
         patchSession("password", u.getPassword());
+        patchParameter("action", "passwordUpdate");
         patchParameter("existingPassword", u.getPassword());
         patchParameter("newPassword", "mynewpassword");
         patchParameter("newPasswordConfirm", "mynewpassworn");
@@ -74,6 +77,7 @@ public class SettingServletTest extends ServletBaseTest {
     public void successfulUpdatePassword() throws IOException, SQLException {
         patchSession("email", u.getEmail());
         patchSession("password", u.getPassword());
+        patchParameter("action", "passwordUpdate");
         patchParameter("existingPassword", u.getPassword());
         patchParameter("newPassword", "mynewpassword");
         patchParameter("newPasswordConfirm", "mynewpassword");
