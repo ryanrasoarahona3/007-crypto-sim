@@ -2,6 +2,7 @@ package com.crypto.cryptosim.servlets;
 
 import com.crypto.cryptosim.ServletBaseTest;
 import com.crypto.cryptosim.models.User;
+import com.crypto.cryptosim.services.TransactionManager;
 import com.crypto.cryptosim.services.UserDAO;
 import com.crypto.cryptosim.structures.Info;
 import com.crypto.cryptosim.structures.InputError;
@@ -30,6 +31,8 @@ public class DashboardServletTest extends ServletBaseTest {
         u.setPassword("password");
         UserDAO.getInstance().add(u);
 
+        TransactionManager.getInstance().deposit(u, 1000);
+
         s = new DashboardServlet();
     }
 
@@ -48,4 +51,40 @@ public class DashboardServletTest extends ServletBaseTest {
         patchSession("password", u.getPassword());
         assertEquals(0, s.getErrorLen());
     }
+
+    @Test
+    public void successfulDeposit() {
+        patchSession("email", u.getEmail());
+        patchSession("password", u.getPassword());
+
+        patchParameter("action", "deposit");
+        patchParameter("sum", "500");
+        s.doPost(request, response);
+        assertEquals(0, s.getErrorLen());
+    }
+
+    @Test
+    public void successfulWidthdrawal() {
+        patchSession("email", u.getEmail());
+        patchSession("password", u.getPassword());
+
+        patchParameter("action", "withdrawal");
+        patchParameter("sum", "500");
+        s.doPost(request, response);
+        assertEquals(0, s.getErrorLen());
+    }
+
+    @Test
+    public void insufficientBalanceError() {
+        patchSession("email", u.getEmail());
+        patchSession("password", u.getPassword());
+
+        patchParameter("action", "withdrawal");
+        patchParameter("sum", "1100");
+        s.doPost(request, response);
+        assertEquals(1, s.getErrorLen());
+        assertTrue(s.haveInputError(InputError.WITHDRAWAL_INSUFFICIENT_BALANCE));
+    }
+
+
 }

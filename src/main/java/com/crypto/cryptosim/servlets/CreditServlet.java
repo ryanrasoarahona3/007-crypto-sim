@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * @deprecated Now dashboardservlet is used
+ */
 @WebServlet(name="creditServlet", value="/credit")
 public class CreditServlet extends HttpServlet {
 

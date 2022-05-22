@@ -12,5 +12,8 @@ public enum InputError {
     SIGNUP_DATABASE_INSERTION_ERROR,
 
     // Pour la session
-    SESSION_EXPIRED
+    SESSION_EXPIRED,
+
+    // Pour le retrait
+    WITHDRAWAL_INSUFFICIENT_BALANCE
 }

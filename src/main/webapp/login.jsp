@@ -14,6 +14,7 @@
     request.getSession().setAttribute("errors", null);
     if(errors == null) errors = new ArrayList<>();
     if(infos == null) infos = new ArrayList<>();
+    if(session_errors == null) session_errors = new ArrayList<>();
 %>
 <div class="card my-5">
     <div class="card-body">
