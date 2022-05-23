@@ -10,6 +10,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+/**
+ * @deprecated, is not used in the project, OperationDAO replaced it, but the functionalities are almost the same except
+ * the introduction of wallet
+ */
 public class TransactionDAO extends AbstractDAO {
 
     private static TransactionDAO instance = null;

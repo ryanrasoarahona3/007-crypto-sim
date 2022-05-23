@@ -1,5 +1,6 @@
 package com.crypto.cryptosim.models;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Operation {
@@ -10,7 +11,6 @@ public class Operation {
     private int cryptoN;
     private int sum;
     private int exchangeId;
-    private Date date;
 
     public int getId() {
         return id;
@@ -68,11 +68,4 @@ public class Operation {
         this.exchangeId = exchangeId;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
 }
