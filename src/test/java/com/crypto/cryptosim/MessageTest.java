@@ -9,6 +9,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+
+/**
+ * @deprecated use requestSupport servlet instead
+ */
 public class MessageTest extends AbstractTest{
 
     @Test

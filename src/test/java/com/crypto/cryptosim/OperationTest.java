@@ -170,4 +170,10 @@ public class OperationTest extends BaseTest {
         int numberOfCoins = om.numberOfCoins(w1);
         assertEquals(3, numberOfCoins);
     }
+
+    @Test
+    public void walletOfJohnTest() throws SQLException {
+        ArrayList<Wallet> walletsOfJohn = wd.walletsByUser(u1);
+        assertEquals(3, walletsOfJohn.size());
+    }
 }

@@ -1,6 +1,10 @@
 package com.crypto.cryptosim.servlets;
 
+import com.crypto.cryptosim.Crypto;
+import com.crypto.cryptosim.MarketManager;
+import com.crypto.cryptosim.ValuableCrypto;
 import com.crypto.cryptosim.models.Wallet;
+import com.crypto.cryptosim.services.OperationManager;
 import com.crypto.cryptosim.services.WalletDAO;
 import com.crypto.cryptosim.structures.Info;
 import com.crypto.cryptosim.structures.InputError;
@@ -56,8 +60,29 @@ public class WalletServlet extends BaseServlet {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+        } else if (action.equals("buy_crypto")) {
+            int walletId = Integer.parseInt(request.getParameter("wallet"));
+            int n = Integer.parseInt(request.getParameter("n"));
 
+            try {
+                Wallet wallet = WalletDAO.getInstance().getById(walletId);
+                ValuableCrypto crypto = MarketManager.getInstance().cryptoById(wallet.getCryptoId());
 
+                int totalPrice = crypto.getValue() * n;
+                int balance = OperationManager.getInstance().getBalance(activeUser);
+                if(totalPrice > balance){
+                    addInputError(InputError.WALLET_NOT_ENOUGH_BALANCE);
+                    dispatchForward(request, response, "wallet.jsp");
+                    return;
+                }
+
+                OperationManager.getInstance().buyCrypto(wallet, n);
+
+                addInfo(Info.WALLET_TRANSACTION_DONE);
+                sendRedirect(request, response, "wallet.jsp");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 

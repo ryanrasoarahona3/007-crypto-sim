@@ -86,4 +86,28 @@ public class WalletDAO extends AbstractDAO<Wallet> {
         }
         return output;
     }
+
+    public Wallet getById(int id) throws SQLException {
+        PreparedStatement stmt = null;
+        ArrayList<Wallet> output = new ArrayList<>();
+        stmt = getConnection().prepareStatement("SELECT * from \"wallet\" WHERE wallet_id=?");
+        stmt.setInt(1, id);
+        ResultSet rs = stmt.executeQuery();
+        while(rs.next()){
+            output.add(getFromResultSet(rs));
+        }
+        return output.get(0);
+    }
+
+    public ArrayList<Wallet> walletsByUser(User u) throws SQLException {
+        PreparedStatement stmt = null;
+        ArrayList<Wallet> output = new ArrayList<>();
+        stmt = getConnection().prepareStatement("SELECT * from \"wallet\" WHERE wallet_user=?");
+        stmt.setInt(1, u.getId());
+        ResultSet rs = stmt.executeQuery();
+        while(rs.next()){
+            output.add(getFromResultSet(rs));
+        }
+        return output;
+    }
 }

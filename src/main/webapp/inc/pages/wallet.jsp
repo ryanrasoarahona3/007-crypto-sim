@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.crypto.cryptosim.structures.InputError" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.crypto.cryptosim.structures.Info" %>
@@ -7,10 +8,13 @@
 <%@ page import="com.crypto.cryptosim.services.TransactionManager" %>
 <%@ page import="com.crypto.cryptosim.MarketManager" %>
 <%@ page import="com.crypto.cryptosim.ValuableCrypto" %>
+<%@ page import="java.lang.reflect.Array" %>
+<%@ page import="com.crypto.cryptosim.services.WalletDAO" %>
+<%@ page import="com.crypto.cryptosim.models.Wallet" %>
+<%@ page import="com.crypto.cryptosim.services.OperationManager" %>
 <%
     DatabaseManager.getInstance().init(request.getServletContext());
-    User u = SessionManager.getInstance().getActiveUser(request);
-    TransactionManager trm = TransactionManager.getInstance();
+    User activeUser = SessionManager.getInstance().getActiveUser(request);
     ArrayList<ValuableCrypto> cryptos = MarketManager.getInstance().getAll();
 %>
 <%
@@ -22,7 +26,7 @@
     request.getSession().removeAttribute("infos");
 %>
 
-<div class="card">
+<div class="card my-3">
     <div class="card-body">
         <h4>Add new wallet</h4>
         <form method="post" action="wallet">
@@ -64,5 +68,37 @@
             <input type="submit" class="btn btn-primary" value="Create"/>
 
         </form>
+    </div>
+</div>
+
+<div class="card my-3">
+    <div class="card-body">
+        <h4>My wallets</h4>
+        <div class="accordion" id="accordionExample">
+        <%
+            ArrayList<Wallet> myWallets = WalletDAO.getInstance().walletsByUser(activeUser);
+            for(int i = 0; i < myWallets.size(); i++){
+                Wallet w = myWallets.get(i);
+                ValuableCrypto c = MarketManager.getInstance().cryptoById(w.getCryptoId());
+                int totalPurchased = OperationManager.getInstance().numberOfCoins(w);
+        %>
+            <div class="accordion-item">
+                <h4 class="accordion-header" id="notifications">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%=w.getId()%>" aria-expanded="true" aria-controls="collapse<%=w.getId()%>">
+                        <%=w.getName()%> - <%=totalPurchased%> <%=c.getSlug()%>
+                    </button>
+                </h4>
+            </div>
+            <div id="collapse<%=w.getId()%>" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <p>
+                        Actual price of <%=c.getName()%> : <%=c.getValue()%> €
+                    </p>
+                </div>
+            </div>
+        <%
+            }
+        %>
+        </div>
     </div>
 </div>

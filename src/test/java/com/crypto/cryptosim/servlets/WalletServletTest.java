@@ -23,6 +23,7 @@ public class WalletServletTest extends ServletBaseTest {
     private WalletServlet s;
     User u;
     ValuableCrypto c1, c2;
+    Wallet w1, w2;
 
     @BeforeEach
     public void init() throws SQLException {
@@ -43,6 +44,21 @@ public class WalletServletTest extends ServletBaseTest {
         c2.initValue(500);
         mm.add(c2);
 
+        w1 = new Wallet();
+        w1.setName("First wallet");
+        w1.setUserId(u.getId());
+        w1.setCryptoId(c1.getId());
+        wd.add(w1);
+
+        w2 = new Wallet();
+        w2.setName("Second wallet of john");
+        w2.setUserId(u.getId());
+        w2.setCryptoId(c2.getId());
+        wd.add(w2);
+
+        tm.nextTick();
+        om.deposit(u, 5000);
+
         s = new WalletServlet();
     }
 
@@ -60,7 +76,7 @@ public class WalletServletTest extends ServletBaseTest {
         assertTrue(s.haveInfo(Info.WALLET_CREATED));
 
         ArrayList<Wallet> wallets = WalletDAO.getInstance().getAll();
-        assertEquals(1, wallets.size());
+        assertEquals(3, wallets.size()); // Normally, it is 2
     }
 
     @Test
@@ -75,5 +91,37 @@ public class WalletServletTest extends ServletBaseTest {
 
         assertEquals(1, s.getErrorLen());
         assertTrue(s.haveInputError(InputError.WALLET_EMPTY_NAME));
+    }
+
+    @Test
+    public void buyCryptoTest() throws ServletException, IOException, SQLException {
+        patchSession("email", u.getEmail());
+        patchSession("password", u.getPassword());
+
+        patchParameter("action", "buy_crypto");
+        patchParameter("wallet", ""+w1.getId());
+        patchParameter("n", ""+2);
+
+        int balance = om.getBalance(u);
+        int unitPrice = mm.cryptoById(w1.getCryptoId()).getValue();
+        s.doPost(request, response);
+        assertEquals(0, s.getErrorLen());
+        assertTrue(s.haveInfo(Info.WALLET_TRANSACTION_DONE));
+        assertEquals(balance - 2*unitPrice, om.getBalance(u));
+
+    }
+
+    @Test
+    public void buyTooMuchCrytoTest() throws ServletException, IOException {
+        patchSession("email", u.getEmail());
+        patchSession("password", u.getPassword());
+
+        patchParameter("action", "buy_crypto");
+        patchParameter("wallet", ""+w1.getId());
+        patchParameter("n", ""+200);
+
+        s.doPost(request, response);
+        assertEquals(1, s.getErrorLen());
+        assertTrue(s.haveInputError(InputError.WALLET_NOT_ENOUGH_BALANCE));
     }
 }

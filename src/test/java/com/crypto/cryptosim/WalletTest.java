@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+/**
+ * @deprecated use wallet operation instead
+ */
 public class WalletTest extends AbstractTest {
     User u;
     User v;
