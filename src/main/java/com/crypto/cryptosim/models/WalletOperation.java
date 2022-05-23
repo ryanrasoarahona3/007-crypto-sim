@@ -1,16 +1,11 @@
 package com.crypto.cryptosim.models;
 
-import java.time.LocalDate;
-import java.util.Date;
-
-public class Operation {
+public class WalletOperation {
     private int id;
     private int origin;
     private int destination;
-    private int cryptoId;
-    private int cryptoN;
+    private int n;
     private int sum;
-    private int exchangeId;
 
     public int getId() {
         return id;
@@ -36,20 +31,12 @@ public class Operation {
         this.destination = destination;
     }
 
-    public int getCryptoId() {
-        return cryptoId;
+    public int getN() {
+        return n;
     }
 
-    public void setCryptoId(int cryptoId) {
-        this.cryptoId = cryptoId;
-    }
-
-    public int getCryptoN() {
-        return cryptoN;
-    }
-
-    public void setCryptoN(int cryptoN) {
-        this.cryptoN = cryptoN;
+    public void setN(int n) {
+        this.n = n;
     }
 
     public int getSum() {
@@ -59,13 +46,4 @@ public class Operation {
     public void setSum(int sum) {
         this.sum = sum;
     }
-
-    public int getExchangeId() {
-        return exchangeId;
-    }
-
-    public void setExchangeId(int exchangeId) {
-        this.exchangeId = exchangeId;
-    }
-
 }

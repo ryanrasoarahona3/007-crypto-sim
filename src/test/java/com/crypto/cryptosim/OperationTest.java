@@ -1,7 +1,7 @@
 package com.crypto.cryptosim;
 
-import com.crypto.cryptosim.models.Operation;
 import com.crypto.cryptosim.models.User;
+import com.crypto.cryptosim.models.UserOperation;
 import com.crypto.cryptosim.models.Wallet;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -87,12 +87,12 @@ public class OperationTest extends BaseTest {
     public void depositTest() throws SQLException {
         // test basique d'une opértation de dépot
         // John had done a deposit
-        Operation o = new Operation();
-        o.setOrigin(u1.getId());
+        UserOperation o = new UserOperation();
+        o.setDestination(u1.getId()); // The role of origin and destination is inverted compared to the old version
         o.setSum(1000);
-        od.add(o);
+        uod.add(o);
 
-        ArrayList<Operation> operations = od.getAll();
+        ArrayList<UserOperation> operations = uod.getAll();
         assertEquals(1, operations.size());
     }
 }

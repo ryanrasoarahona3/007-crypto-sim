@@ -2,6 +2,7 @@ package com.crypto.cryptosim;
 
 import com.crypto.cryptosim.controllers.ChartsController;
 import com.crypto.cryptosim.mockers.HttpServletResponseMocker;
+import com.crypto.cryptosim.models.WalletOperation;
 import com.crypto.cryptosim.services.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
@@ -23,7 +24,8 @@ public class BaseTest extends Mockito {
     protected MessageDAO msr;
     protected SupportRequestDAO srd;
     protected WalletDAO wd;
-    protected OperationDAO od;
+    protected UserOperationDAO uod;
+    protected WalletOperationDAO wod;
 
     @BeforeEach
     protected void init() throws SQLException {
@@ -39,9 +41,11 @@ public class BaseTest extends Mockito {
         msr = MessageDAO.getInstance();
         srd = SupportRequestDAO.getInstance();
         wd = WalletDAO.getInstance();
-        od = OperationDAO.getInstance();
+        uod = UserOperationDAO.getInstance();
+        wod = WalletOperationDAO.getInstance();
 
-        od.destroySQLTable();
+        wod.destroySQLTable();
+        uod.destroySQLTable();
         wd.destroySQLTable();
         srd.destroySQLTable();
         trm.destroySQLTable();
@@ -58,7 +62,8 @@ public class BaseTest extends Mockito {
         msr.buildSQLTable();
         srd.buildSQLTable();
         wd.buildSQLTable();
-        od.buildSQLTable();
+        uod.buildSQLTable();
+        wod.buildSQLTable();
 
         tm = TickManager.getInstance();
 

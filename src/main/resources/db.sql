@@ -133,19 +133,26 @@ CREATE TABLE "wallet" (
 )
 
 --
--- OPERATION
-DROP TABLE IF EXISTS "operation";
-CREATE TABLE "operation" (
-    operation_id serial PRIMARY KEY,
-    operation_origin int null, -- Contrary to "transaction", this is a wallet, not a user
-    operation_destination int null, -- Same same
-    operation_crypto int null,
-    operation_crypto_n int null,
-    operation_sum int,
-    operation_exchange int null,
-    operation_date date not null,
-    CONSTRAINT fk_origin FOREIGN KEY (operation_origin) REFERENCES "wallet"(wallet_id),
-    CONSTRAINT fk_destination FOREIGN KEY (operation_destination) REFERENCES "wallet"(wallet_id),
-    CONSTRAINT fk_crypto FOREIGN KEY (transaction_crypto) REFERENCES crypto(crypto_id),
-    CONSTRAINT fk_exchange FOREIGN KEY (transaction_exchange) REFERENCES exchange(exchange_id)
+-- USER OPERATION
+DROP TABLE IF EXISTS "user_operation";
+CREATE TABLE "user_operation" (
+    user_operation_id serial PRIMARY KEY,
+    user_operation_origin int null, -- This is a user
+    user_operation_destination int null, -- Same same
+    user_operation_sum int,
+    user_operation_date date not null,
+    CONSTRAINT fk_origin FOREIGN KEY (user_operation_origin) REFERENCES "user"(user_id),
+    CONSTRAINT fk_destination FOREIGN KEY (user_operation_destination) REFERENCES "user"(user_id)
+)
+
+DROP TABLE IF EXISTS "wallet_operation";
+CREATE TABLE "wallet_operation" (
+    wallet_operation_id serial PRIMARY KEY,
+    wallet_operation_origin int null, --
+    wallet_operation_destination int null, --
+    wallet_operation_n int null, -- The quantity of crypto
+    wallet_operation_sum int null,
+    wallet_operation_date date not null,
+    CONSTRAINT fk_origin FOREIGN KEY (wallet_operation_origin) REFERENCES "wallet"(wallet_id),
+    CONSTRAINT fk_destination FOREIGN KEY (wallet_operation_destination) REFERENCES "wallet"(wallet_id),
 )
