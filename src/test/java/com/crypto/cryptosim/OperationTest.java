@@ -127,4 +127,34 @@ public class OperationTest extends BaseTest {
         int balance = om.getBalance(u1);
         assertEquals(700, balance);
     }
+
+    @Test
+    public void buyingCryptoTest() throws SQLException {
+        om.deposit(u1, 3000);
+
+        assertEquals(u1.getId(), w1.getUserId());
+        int btcPrice = mm.cryptoById(w1.getCryptoId()).getValue();
+        om.buyCrypto(w1, 2);
+
+        int balance = om.getBalance(u1);
+        assertEquals(3000 - 2 * btcPrice, balance);
+    }
+
+    @Test
+    public void sellingCryptoTest() throws SQLException {
+        om.deposit(u1, 3000);
+
+        assertEquals(u1.getId(), w1.getUserId());
+        int btcPrice = mm.cryptoById(w1.getCryptoId()).getValue();
+        om.buyCrypto(w1, 2);
+
+        int balance = om.getBalance(u1);
+
+        tm.nextTick();
+        int btcNewPrice = mm.cryptoById(w1.getCryptoId()).getValue();
+        om.sellCrypto(w1, 2);
+
+        int newBalance = om.getBalance(u1);
+        assertEquals(balance + 2*btcNewPrice, newBalance);
+    }
 }

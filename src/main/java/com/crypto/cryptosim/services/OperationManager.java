@@ -1,9 +1,12 @@
 package com.crypto.cryptosim.services;
 
 import com.crypto.cryptosim.DatabaseManager;
+import com.crypto.cryptosim.MarketManager;
+import com.crypto.cryptosim.ValuableCrypto;
 import com.crypto.cryptosim.models.User;
 import com.crypto.cryptosim.models.UserOperation;
 import com.crypto.cryptosim.models.Wallet;
+import com.crypto.cryptosim.models.WalletOperation;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -31,6 +34,7 @@ public class OperationManager {
 
     protected UserOperationDAO uod;
     protected WalletOperationDAO wod;
+    protected MarketManager mm;
 
     // due to lack of skills, I have divided the code getBalance into 4 subparts
     private int totalUserIncome(User u) throws SQLException {
@@ -78,6 +82,7 @@ public class OperationManager {
     public OperationManager() {
         uod = UserOperationDAO.getInstance();
         wod = WalletOperationDAO.getInstance();
+        mm = MarketManager.getInstance();
     }
 
     public void deposit(User u, int sum) throws SQLException {
@@ -92,5 +97,39 @@ public class OperationManager {
         o.setOrigin(u.getId());
         o.setSum(sum);
         uod.add(o);
+    }
+
+    public void buyCrypto(Wallet w, int n) throws SQLException {
+        int sum = n * mm.cryptoById(w.getCryptoId()).getValue();
+
+        WalletOperation wo = new WalletOperation();
+        wo.setDestination(w.getCryptoId());
+        wo.setN(n);
+        wo.setSum(sum);
+
+        /*UserOperation uo = new UserOperation();
+        uo.setOrigin(w.getUserId());
+        uo.setSum(sum);*/
+
+        // register
+        wod.add(wo);
+        //uod.add(uo);
+    }
+
+    public void sellCrypto(Wallet w, int n) throws SQLException {
+        int sum = n * mm.cryptoById(w.getCryptoId()).getValue();
+
+        WalletOperation wo = new WalletOperation();
+        wo.setOrigin(w.getCryptoId());
+        wo.setN(n);
+        wo.setSum(sum);
+
+        /*UserOperation uo = new UserOperation();
+        uo.setDestination(w.getUserId());
+        uo.setSum(sum);*/
+
+        // register
+        wod.add(wo);
+        //uod.add(uo);
     }
 }
