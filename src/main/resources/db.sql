@@ -154,5 +154,5 @@ CREATE TABLE "wallet_operation" (
     wallet_operation_sum int null,
     wallet_operation_date date not null,
     CONSTRAINT fk_origin FOREIGN KEY (wallet_operation_origin) REFERENCES "wallet"(wallet_id),
-    CONSTRAINT fk_destination FOREIGN KEY (wallet_operation_destination) REFERENCES "wallet"(wallet_id),
+    CONSTRAINT fk_destination FOREIGN KEY (wallet_operation_destination) REFERENCES "wallet"(wallet_id)
 )

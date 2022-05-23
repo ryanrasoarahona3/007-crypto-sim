@@ -3,6 +3,8 @@ package com.crypto.cryptosim;
 import com.crypto.cryptosim.models.User;
 import com.crypto.cryptosim.models.UserOperation;
 import com.crypto.cryptosim.models.Wallet;
+import com.crypto.cryptosim.models.WalletOperation;
+import com.crypto.cryptosim.services.WalletOperationDAO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -81,6 +83,10 @@ public class OperationTest extends BaseTest {
         w5.setCryptoId(eth.getId());
         w5.setDate(tm.getDate());
         wd.add(w5);
+
+        // Randomize a bit
+        tm.nextTick();
+        tm.nextTick();
     }
 
     @Test
@@ -94,5 +100,22 @@ public class OperationTest extends BaseTest {
 
         ArrayList<UserOperation> operations = uod.getAll();
         assertEquals(1, operations.size());
+    }
+
+    @Test
+    public void buyCryptoTest() throws SQLException {
+        UserOperation o = new UserOperation();
+        o.setDestination(u1.getId());
+        o.setSum(1000);
+        uod.add(o);
+
+        WalletOperation w = new WalletOperation();
+        w.setDestination(w1.getId());
+        w.setN(2); // He as bought 2 unit of crypto
+        w.setSum(2 * mm.cryptoById(w1.getCryptoId()).getValue());
+        wod.add(w);
+
+        ArrayList<WalletOperation> walletOperations = wod.getAll();
+        assertEquals(1, walletOperations.size());
     }
 }
