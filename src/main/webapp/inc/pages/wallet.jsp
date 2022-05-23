@@ -26,6 +26,12 @@
     request.getSession().removeAttribute("infos");
 %>
 
+<style>
+    .auto-updated input{
+        text-align: right!important;
+    }
+</style>
+
 <div class="card my-3">
     <div class="card-body">
         <h4>Add new wallet</h4>
@@ -180,18 +186,18 @@
                     <form method="post" action="wallet">
                         <input type="hidden" name="action" value="buy_crypto"/>
                         <input type="hidden" name="wallet" value="<%=w.getId()%>"/>
-                        <div class="input-group mb-3">
-                            <input type="number" class="form-control" placeholder="Hom many <%=c.getName()%> do you want ?" aria-describedby="buy-<%=w.getId()%>" name="n">
-                            <span class="input-group-text" id="buy-<%=w.getId()%>">BTC = 15321 €</span>
+                        <div class="input-group mb-3 auto-updated" data-price="<%=c.getValue()%>">
+                            <input type="number" class="form-control" placeholder="Hom many <%=c.getName()%> do you want to buy?" aria-describedby="buy-<%=w.getId()%>" name="n">
+                            <span class="input-group-text" id="buy-<%=w.getId()%>"><%=c.getSlug()%> =  <span class="total">0</span> €</span>
                             <button type="submit" class="btn btn-primary" type="button">Buy</button>
                         </div>
                     </form>
                     <form method="post" action="wallet">
                         <input type="hidden" name="action" value="sell_crypto"/>
                         <input type="hidden" name="wallet" value="<%=w.getId()%>"/>
-                        <div class="input-group mb-3">
-                            <input type="number" class="form-control" placeholder="Hom many <%=c.getName()%> do you want ?" aria-describedby="sell-<%=w.getId()%>" name="n">
-                            <span class="input-group-text" id="sell-<%=w.getId()%>">BTC = 15321 €</span>
+                        <div class="input-group mb-3 auto-updated" data-price="<%=c.getValue()%>">
+                            <input type="number" class="form-control" placeholder="Hom many <%=c.getName()%> do you want to sell ?" aria-describedby="sell-<%=w.getId()%>" name="n">
+                            <span class="input-group-text" id="sell-<%=w.getId()%>">BTC = <span class="total">0</span> €</span>
                             <button type="submit" class="btn btn-danger" type="button">Sell</button>
                         </div>
                     </form>
@@ -203,3 +209,28 @@
         </div>
     </div>
 </div>
+
+<script>
+    function autoUpdate($element){
+        console.log($element);
+        $element.keyup((e)=>{
+            let price = parseInt($(e.target.parentElement).attr("data-price"));
+            let qty = parseInt($(e.target).val());
+            let total = price * qty;
+            if(isNaN(total)) total = 0;
+
+            $(e.target.parentElement).find(".total").text(" "+total);
+
+            /*
+            console.log(price);
+            console.log(qty);
+            console.log($(e.target.parentElement).find(".total"));
+
+             */
+        })
+    }
+
+    $(()=>{
+        autoUpdate($(".auto-updated"))
+    })
+</script>
