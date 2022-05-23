@@ -108,8 +108,8 @@ public class WalletServlet extends BaseServlet {
 
             try {
                 OperationManager.getInstance().deposit(activeUser, sum);
-                addInfo(Info.DEPOSIT_DONE);
-                sendRedirect(request, response, "wallet");
+                addInfo(Info.WALLET_DEPOSIT_DONE);
+                sendRedirect(request, response, "wallet.jsp");
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -123,8 +123,8 @@ public class WalletServlet extends BaseServlet {
                     return;
                 }
                 OperationManager.getInstance().withdrawal(activeUser, sum);
-                addInfo(Info.WITHDRAWAL_DONE);
-                sendRedirect(request, response, "wallet");
+                addInfo(Info.WALLET_WITHDRAWAL_DONE);
+                dispatchForward(request, response, "wallet.jsp");
             } catch (SQLException e) {
                 e.printStackTrace();
             }

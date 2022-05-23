@@ -72,57 +72,62 @@
 </div>
 
 <div class="card my-3">
-    <div class="row">
-        <div class="col-sm-6">
-            <form method="post" action="wallet">
-                <strong>Make a deposit</strong>
-                <div class="my-2">
-                    <input type="hidden" name="action" value="deposit"/>
-
-                    <label for="credit" class="form-label">How much do you credit ?</label>
-                    <input type="number" class="form-control" id="credit" name="sum">
-                    <% if(infos.contains(Info.WALLET_DEPOSIT_DONE)) { %>
-                    <p class="text-success" style="font-size: .8em;">
-                        Deposit done
-                    </p>
-                    <% } %>
-                </div>
-                <div class="my-2">
-                    <input type="submit" class="btn btn-primary" value="Submit">
-                </div>
-            </form>
+    <div class="card-body">
+        <div>
+            <h3>Your balance : <%=OperationManager.getInstance().getBalance(activeUser)%> €</h3>
         </div>
-        <div class="col-sm-6">
-            <form method="post" action="wallet">
-                <strong>Make a withdrawal</strong>
-                <div class="my-2">
-                    <input type="hidden" name="action" value="withdrawal"/>
+        <div class="row">
+            <div class="col-sm-6">
+                <form method="post" action="wallet">
+                    <strong>Make a deposit</strong>
+                    <div class="my-2">
+                        <input type="hidden" name="action" value="deposit"/>
 
-                    <label for="debit" class="form-label">How much do you want to withdraw from your acount ?</label>
-                    <input type="number" class="form-control" id="debit" name="sum">
+                        <label for="credit" class="form-label">How much do you credit to your account ?</label>
+                        <input type="number" class="form-control" id="credit" name="sum">
+                        <% if(infos.contains(Info.WALLET_DEPOSIT_DONE)) { %>
+                        <p class="text-success" style="font-size: .8em;">
+                            Deposit done
+                        </p>
+                        <% } %>
+                    </div>
+                    <div class="my-2">
+                        <input type="submit" class="btn btn-primary" value="Submit">
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-6">
+                <form method="post" action="wallet">
+                    <strong>Make a withdrawal</strong>
+                    <div class="my-2">
+                        <input type="hidden" name="action" value="withdrawal"/>
 
-                    <% if(errors.contains(InputError.WALLET_WITHDRAWAL_NOT_ENOUGH_CASH)) { %>
-                    <p class="text-danger" style="font-size: .8em;">
-                        Insufficient balance, please, make a deposit
-                    </p>
-                    <% } %>
-                    <% if(infos.contains(Info.WALLET_WITHDRAWAL_DONE)) { %>
-                    <p class="text-success" style="font-size: .8em;">
-                        Deposit done
-                    </p>
-                    <% } %>
+                        <label for="debit" class="form-label">How much do you want to withdraw from your acount ?</label>
+                        <input type="number" class="form-control" id="debit" name="sum">
 
-                    <% if(infos.contains(Info.WITHDRAWAL_DONE)) { %>
-                    <p class="text-success" style="font-size: .8em;">
-                        Withdrawal done
-                    </p>
-                    <% } %>
+                        <% if(errors.contains(InputError.WALLET_WITHDRAWAL_NOT_ENOUGH_CASH)) { %>
+                        <p class="text-danger" style="font-size: .8em;">
+                            Insufficient balance, please, make a deposit
+                        </p>
+                        <% } %>
+                        <% if(infos.contains(Info.WALLET_WITHDRAWAL_DONE)) { %>
+                        <p class="text-success" style="font-size: .8em;">
+                            Withdrawal done
+                        </p>
+                        <% } %>
 
-                </div>
-                <div class="my-2">
-                    <input type="submit" class="btn btn-primary" value="Submit">
-                </div>
-            </form>
+                        <% if(infos.contains(Info.WITHDRAWAL_DONE)) { %>
+                        <p class="text-success" style="font-size: .8em;">
+                            Withdrawal done
+                        </p>
+                        <% } %>
+
+                    </div>
+                    <div class="my-2">
+                        <input type="submit" class="btn btn-primary" value="Submit">
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
