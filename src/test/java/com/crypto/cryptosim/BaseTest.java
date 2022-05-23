@@ -26,6 +26,7 @@ public class BaseTest extends Mockito {
     protected WalletDAO wd;
     protected UserOperationDAO uod;
     protected WalletOperationDAO wod;
+    protected OperationManager om;
 
     @BeforeEach
     protected void init() throws SQLException {
@@ -43,6 +44,7 @@ public class BaseTest extends Mockito {
         wd = WalletDAO.getInstance();
         uod = UserOperationDAO.getInstance();
         wod = WalletOperationDAO.getInstance();
+        om = OperationManager.getInstance();
 
         wod.destroySQLTable();
         uod.destroySQLTable();

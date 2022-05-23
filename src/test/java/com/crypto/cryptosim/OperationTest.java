@@ -118,4 +118,13 @@ public class OperationTest extends BaseTest {
         ArrayList<WalletOperation> walletOperations = wod.getAll();
         assertEquals(1, walletOperations.size());
     }
+
+    @Test
+    public void checkBalanceAfterDepositAndWithdrawalOnlyTest() throws SQLException {
+        om.deposit(u1, 1000);
+        om.withdrawal(u1, 300);
+
+        int balance = om.getBalance(u1);
+        assertEquals(700, balance);
+    }
 }
