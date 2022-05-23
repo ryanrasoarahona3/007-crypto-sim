@@ -157,4 +157,17 @@ public class OperationTest extends BaseTest {
         int newBalance = om.getBalance(u1);
         assertEquals(balance + 2*btcNewPrice, newBalance);
     }
+
+    @Test
+    public void numberOfCoinsTest() throws SQLException {
+        om.deposit(u1, 5000);
+        om.buyCrypto(w1, 2);
+        tm.nextTick();
+        om.buyCrypto(w1, 2);
+        tm.nextTick();
+        om.sellCrypto(w1, 1);
+
+        int numberOfCoins = om.numberOfCoins(w1);
+        assertEquals(3, numberOfCoins);
+    }
 }

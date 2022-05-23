@@ -106,14 +106,7 @@ public class OperationManager {
         wo.setDestination(w.getCryptoId());
         wo.setN(n);
         wo.setSum(sum);
-
-        /*UserOperation uo = new UserOperation();
-        uo.setOrigin(w.getUserId());
-        uo.setSum(sum);*/
-
-        // register
         wod.add(wo);
-        //uod.add(uo);
     }
 
     public void sellCrypto(Wallet w, int n) throws SQLException {
@@ -123,13 +116,26 @@ public class OperationManager {
         wo.setOrigin(w.getCryptoId());
         wo.setN(n);
         wo.setSum(sum);
-
-        /*UserOperation uo = new UserOperation();
-        uo.setDestination(w.getUserId());
-        uo.setSum(sum);*/
-
-        // register
         wod.add(wo);
-        //uod.add(uo);
+    }
+
+    private int totalPurchased(Wallet w) throws SQLException {
+        String sql = "SELECT sum(wallet_operation_n) as total_purchased FROM wallet_operation WHERE wallet_operation_destination=?;";
+        PreparedStatement stmt = getConnection().prepareStatement(sql);
+        stmt.setInt(1, w.getId());ResultSet rs = stmt.executeQuery();
+        rs.next();
+        return rs.getInt("total_purchased");
+    }
+
+    private int totalSold(Wallet w) throws SQLException {
+        String sql = "SELECT sum(wallet_operation_n) as total_sold FROM wallet_operation WHERE wallet_operation_origin=?;";
+        PreparedStatement stmt = getConnection().prepareStatement(sql);
+        stmt.setInt(1, w.getId());ResultSet rs = stmt.executeQuery();
+        rs.next();
+        return rs.getInt("total_sold");
+    }
+
+    public int numberOfCoins(Wallet w) throws SQLException {
+        return totalPurchased(w) - totalSold(w);
     }
 }
