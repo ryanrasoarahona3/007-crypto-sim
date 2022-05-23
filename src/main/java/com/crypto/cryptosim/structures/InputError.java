@@ -27,5 +27,8 @@ public enum InputError {
 
     // SupportRequest
     SUPPORTREQUEST_EMPTY_TITLE,
-    SUPPORTREQUEST_EMPTY_MESSAGE
+    SUPPORTREQUEST_EMPTY_MESSAGE,
+
+    // Pour la création d'un wallet
+    WALLET_EMPTY_NAME
 }
