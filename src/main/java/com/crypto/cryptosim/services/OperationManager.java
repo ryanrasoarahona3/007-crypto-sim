@@ -103,7 +103,7 @@ public class OperationManager {
         int sum = n * mm.cryptoById(w.getCryptoId()).getValue();
 
         WalletOperation wo = new WalletOperation();
-        wo.setDestination(w.getCryptoId());
+        wo.setDestination(w.getId());
         wo.setN(n);
         wo.setSum(sum);
         wod.add(wo);
