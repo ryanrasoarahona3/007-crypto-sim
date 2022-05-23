@@ -6,6 +6,7 @@ import com.crypto.cryptosim.services.SessionManager;
 import com.crypto.cryptosim.structures.Info;
 import com.crypto.cryptosim.structures.InputError;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -79,5 +80,11 @@ public class BaseServlet extends HttpServlet {
         request.getSession().setAttribute("errors", getErrors());
         request.getSession().setAttribute("infos", getInfos());
         response.sendRedirect(dest);
+    }
+
+    protected void dispatchForward(HttpServletRequest request, HttpServletResponse response, String resource) throws ServletException, IOException {
+        request.getSession().setAttribute("errors", getErrors());
+        request.getSession().setAttribute("infos", getInfos());
+        request.getRequestDispatcher(resource).forward(request, response);
     }
 }

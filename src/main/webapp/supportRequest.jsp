@@ -17,8 +17,8 @@
     ArrayList<Info> infos = (ArrayList<Info>) request.getSession().getAttribute("infos");
     if(errors == null) errors = new ArrayList<>();
     if(infos == null) infos = new ArrayList<>();
-    request.getServletContext().removeAttribute("errors");
-    request.getServletContext().removeAttribute("infos");
+    request.getSession().removeAttribute("errors");
+    request.getSession().removeAttribute("infos");
 %>
 
 
@@ -58,11 +58,23 @@
 
                     <div class="mb-3">
                         <label for="title" class="form-label">Object</label>
-                        <input type="text" class="form-control" id="title" name="title">
+                        <input type="text" class="form-control" id="title" name="title"
+                            value="<%= (request.getParameter("title")!=null)?request.getParameter("title"):""%>"
+                        >
+                        <% if(errors.contains(InputError.SUPPORTREQUEST_EMPTY_TITLE)) { %>
+                        <p class="text-danger" style="font-size: .8em;">
+                            Required field
+                        </p>
+                        <% } %>
                     </div>
                     <div class="mb-3">
                         <label for="message" class="form-label">Your message</label>
-                        <textarea class="form-control" id="message" rows="3" name="message"></textarea>
+                        <textarea class="form-control" id="message" rows="3" name="message"><%= (request.getParameter("message")!=null)?request.getParameter("message"):""%></textarea>
+                        <% if(errors.contains(InputError.SUPPORTREQUEST_EMPTY_MESSAGE)) { %>
+                        <p class="text-danger" style="font-size: .8em;">
+                            Required field
+                        </p>
+                        <% } %>
                     </div>
 
                     <input type="submit" class="btn btn-primary" value="Envoyer"/>

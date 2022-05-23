@@ -15,7 +15,7 @@ import java.sql.SQLException;
 @WebServlet(name="supportRequestServlet", value="/supportRequest")
 public class SupportRequestServlet extends BaseServlet {
 
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         resetVars(request);
 
         // For the view
@@ -29,7 +29,16 @@ public class SupportRequestServlet extends BaseServlet {
         String title = request.getParameter("title");
         String message = request.getParameter("message");
 
-        // TODO: null value exception
+        if(title.equals(""))
+            addInputError(InputError.SUPPORTREQUEST_EMPTY_TITLE);
+        if(message.equals(""))
+            addInputError(InputError.SUPPORTREQUEST_EMPTY_MESSAGE);
+
+        if(getErrorLen() > 0) {
+            // TODO: fix test case of this line
+            dispatchForward(request, response, "supportRequest.jsp");
+            return;
+        }
 
         try {
             SupportRequest s = new SupportRequest();
