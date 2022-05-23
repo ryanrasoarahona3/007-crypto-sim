@@ -1,6 +1,7 @@
 package com.crypto.cryptosim.services;
 
 import com.crypto.cryptosim.AbstractDAO;
+import com.crypto.cryptosim.TickManager;
 import com.crypto.cryptosim.models.User;
 import com.crypto.cryptosim.models.Wallet;
 
@@ -62,7 +63,7 @@ public class WalletDAO extends AbstractDAO<Wallet> {
         stmt.setString(1, b.getName());
         stmt.setInt(2, b.getUserId());
         stmt.setInt(3, b.getCryptoId());
-        stmt.setDate(4, java.sql.Date.valueOf(b.getDate().toString())); // TODO: à vérifier
+        stmt.setDate(4, java.sql.Date.valueOf(TickManager.getInstance().getDate()));
         stmt.execute();
 
         ResultSet generatedKeys = stmt.getGeneratedKeys();

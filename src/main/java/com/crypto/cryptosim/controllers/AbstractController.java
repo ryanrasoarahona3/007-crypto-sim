@@ -17,6 +17,11 @@ public abstract class AbstractController {
     protected MessageDAO msr;
     protected SupportRequestDAO srd;
 
+    protected WalletDAO wd;
+    protected UserOperationDAO uod;
+    protected WalletOperationDAO wod;
+    protected OperationManager om;
+
 
     public AbstractController(){
         try {

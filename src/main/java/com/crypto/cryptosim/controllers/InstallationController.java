@@ -6,6 +6,7 @@ import com.crypto.cryptosim.ValuableCrypto;
 import com.crypto.cryptosim.models.Exchange;
 import com.crypto.cryptosim.models.Gender;
 import com.crypto.cryptosim.models.User;
+import com.crypto.cryptosim.models.Wallet;
 import com.crypto.cryptosim.services.*;
 
 import javax.servlet.ServletContext;
@@ -114,7 +115,14 @@ public class InstallationController extends AbstractController{
         mm = MarketManager.getInstance();
         msr = MessageDAO.getInstance(); // deprecated
         srd = SupportRequestDAO.getInstance();
+        wd = WalletDAO.getInstance();
+        uod = UserOperationDAO.getInstance();
+        wod = WalletOperationDAO.getInstance();
+        om = OperationManager.getInstance();
 
+        uod.destroySQLTable();
+        wod.destroySQLTable();
+        wd.destroySQLTable();
         srd.destroySQLTable();
         trm.destroySQLTable();
         er.destroySQLTable();
@@ -128,6 +136,9 @@ public class InstallationController extends AbstractController{
         er.buildSQLTable();
         trm.buildSQLTable();
         srd.buildSQLTable();
+        wd.buildSQLTable();
+        uod.buildSQLTable();
+        wod.buildSQLTable();
 
         // Créer Un crypto + 2 mois (60j) de données
         try {
@@ -194,6 +205,28 @@ public class InstallationController extends AbstractController{
             john.setAddress("1 Rue des érables");
             ur.add(john);
 
+            Wallet johnbtc1 = new Wallet();
+            johnbtc1.setCryptoId(c1.getId());
+            johnbtc1.setName("John first bitcoin wallet");
+            johnbtc1.setUserId(john.getId());
+            johnbtc1.setCryptoId(c1.getId());
+            wd.add(johnbtc1);
+
+            Wallet johnbtc2 = new Wallet();
+            johnbtc2.setCryptoId(c1.getId());
+            johnbtc2.setName("John second bitcoin wallet");
+            johnbtc2.setUserId(john.getId());
+            johnbtc2.setCryptoId(c1.getId());
+            wd.add(johnbtc2);
+
+            Wallet johnxrp1 = new Wallet();
+            johnxrp1.setCryptoId(c1.getId());
+            johnxrp1.setName("John Ripple wallet");
+            johnxrp1.setUserId(john.getId());
+            johnxrp1.setCryptoId(c4.getId());
+            wd.add(johnxrp1);
+
+            /*
             trm.deposit(john, 10000);
             trm.buyCoin(john, c1, 5);
 
@@ -211,7 +244,7 @@ public class InstallationController extends AbstractController{
             trm.withdrawal(john, 200);
 
             for(int i = 0; i < 1; i++) tm.nextTick();
-
+            */
 
         } catch (SQLException e) {
             e.printStackTrace();
