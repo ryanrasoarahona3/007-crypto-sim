@@ -7,6 +7,9 @@ import com.crypto.cryptosim.models.ReferencedMessage;
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * @deprecated Not in use, use SupportRequest Instead
+ */
 public class MessageDAO extends AbstractDAO {
     private static MessageDAO instance = null;
     public static MessageDAO getInstance(){

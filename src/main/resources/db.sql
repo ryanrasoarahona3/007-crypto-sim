@@ -98,3 +98,23 @@ CREATE TABLE "message" (
     message_sender INT NOT NULL,
     CONSTRAINT fk_sender FOREIGN KEY (message_sender) REFERENCES "user"(user_id"")
 )
+
+--
+-- SUPPORT REQUEST
+DROP TABLE IF EXISTS "supportRequest";
+CREATE TABLE "supportRequest" (
+    request_id serial PRIMARY KEY,
+    request_title varchar(255),
+    request_message text,
+    request_user int not null,
+    CONSTRAINT fk_user FOREIGN KEY (request_user) REFERENCES "user" (user_id)
+);
+
+--
+-- CURRENCY*
+DROP TABLE IF EXISTS "currency";
+CREATE TABLE "currency" (
+    currency_id serial PRIMARY KEY,
+    currency_name varchar(255),
+    currency_symbol varchar(255)
+)

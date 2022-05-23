@@ -6,10 +6,7 @@ import com.crypto.cryptosim.ValuableCrypto;
 import com.crypto.cryptosim.models.Exchange;
 import com.crypto.cryptosim.models.Gender;
 import com.crypto.cryptosim.models.User;
-import com.crypto.cryptosim.services.ExchangeDAO;
-import com.crypto.cryptosim.services.MessageDAO;
-import com.crypto.cryptosim.services.TransactionManager;
-import com.crypto.cryptosim.services.UserDAO;
+import com.crypto.cryptosim.services.*;
 
 import javax.servlet.ServletContext;
 import java.sql.SQLException;
@@ -115,8 +112,10 @@ public class InstallationController extends AbstractController{
         trm = TransactionManager.getInstance();
         er = ExchangeDAO.getInstance();
         mm = MarketManager.getInstance();
-        msr = MessageDAO.getInstance();
+        msr = MessageDAO.getInstance(); // deprecated
+        srd = SupportRequestDAO.getInstance();
 
+        srd.destroySQLTable();
         trm.destroySQLTable();
         er.destroySQLTable();
         mm.destroySQLTable();
@@ -128,6 +127,7 @@ public class InstallationController extends AbstractController{
         mm.buildSQLTable();
         er.buildSQLTable();
         trm.buildSQLTable();
+        srd.buildSQLTable();
 
         // Créer Un crypto + 2 mois (60j) de données
         try {

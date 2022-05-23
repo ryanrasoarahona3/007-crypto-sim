@@ -1,5 +1,8 @@
 package com.crypto.cryptosim.servlets;
 
+import com.crypto.cryptosim.DatabaseManager;
+import com.crypto.cryptosim.models.User;
+import com.crypto.cryptosim.services.SessionManager;
 import com.crypto.cryptosim.structures.Info;
 import com.crypto.cryptosim.structures.InputError;
 
@@ -7,16 +10,31 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class BaseServlet extends HttpServlet {
     private ArrayList<InputError> inputErrors;
     private ArrayList<Info> immediateInfo;
+    // TODO: appliquer cette factorisation à tous les classes de Servlet
+    protected DatabaseManager dm;
+    protected User activeUser;
 
     public void resetVars(){
         inputErrors = new ArrayList<>();
         immediateInfo = new ArrayList<>();
+    }
+
+    public void resetVars(HttpServletRequest request){
+        resetVars();
+
+        try {
+            DatabaseManager.getInstance().init(request.getServletContext());
+            activeUser = SessionManager.getInstance().getActiveUser(request);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     protected void addInputError(InputError e){

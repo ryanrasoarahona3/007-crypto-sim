@@ -3,10 +3,7 @@ package com.crypto.cryptosim.controllers;
 import com.crypto.cryptosim.DatabaseManager;
 import com.crypto.cryptosim.MarketManager;
 import com.crypto.cryptosim.TickManager;
-import com.crypto.cryptosim.services.ExchangeDAO;
-import com.crypto.cryptosim.services.MessageDAO;
-import com.crypto.cryptosim.services.TransactionManager;
-import com.crypto.cryptosim.services.UserDAO;
+import com.crypto.cryptosim.services.*;
 
 import java.sql.SQLException;
 
@@ -18,6 +15,7 @@ public abstract class AbstractController {
     protected ExchangeDAO er;
     protected TransactionManager trm;
     protected MessageDAO msr;
+    protected SupportRequestDAO srd;
 
 
     public AbstractController(){

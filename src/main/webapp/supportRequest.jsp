@@ -6,9 +6,20 @@
 <%@ page import="com.crypto.cryptosim.services.SessionManager" %>
 <%@ page import="com.crypto.cryptosim.models.User" %>
 <%@ page import="com.crypto.cryptosim.models.ExtendedUser" %>
+<%@ page import="com.crypto.cryptosim.services.SupportRequestDAO" %>
+<%@ page import="com.crypto.cryptosim.models.ReferencedSupportRequest" %>
+<%@ page import="com.crypto.cryptosim.structures.Info" %>
+<%@ page import="com.crypto.cryptosim.structures.InputError" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-
+<%
+    ArrayList<InputError> errors = (ArrayList<InputError>) request.getSession().getAttribute("errors");
+    ArrayList<Info> infos = (ArrayList<Info>) request.getSession().getAttribute("infos");
+    if(errors == null) errors = new ArrayList<>();
+    if(infos == null) infos = new ArrayList<>();
+    request.getServletContext().removeAttribute("errors");
+    request.getServletContext().removeAttribute("infos");
+%>
 
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -34,19 +45,24 @@
         <% if(!user.isAdmin()) { %>
         <div class="card my-5">
             <div class="card-body">
-                <h2>Support technique</h2>
-                <form method="post" action="support">
-                    <div class="mb-3">
-                        <label for="request" class="form-label">Requête</label>
-                        <input type="text" class="form-control" id="request" name="request">
+                <h2>Technical support</h2>
+                <form method="post" action="supportRequest">
+
+                    <% if(infos.contains(Info.SUPPORTREQUEST_SUCCESS)){ %>
+                    <div class="my-3 text-success">
+                        <p>
+                            Your request has been sent to the technical support
+                        </p>
                     </div>
+                    <% } %>
+
                     <div class="mb-3">
-                        <label for="title" class="form-label">Title</label>
+                        <label for="title" class="form-label">Object</label>
                         <input type="text" class="form-control" id="title" name="title">
                     </div>
                     <div class="mb-3">
-                        <label for="body" class="form-label">Votre message</label>
-                        <textarea class="form-control" id="body" rows="3" name="body"></textarea>
+                        <label for="message" class="form-label">Your message</label>
+                        <textarea class="form-control" id="message" rows="3" name="message"></textarea>
                     </div>
 
                     <input type="submit" class="btn btn-primary" value="Envoyer"/>
@@ -57,19 +73,18 @@
         <% } else { %>
         <div class="card">
             <div class="card-body">
-                <h2>Messages reçus</h2>
+                <h2>Received messages</h2>
                 <%
-                    ArrayList<ReferencedMessage> messages = MessageDAO.getInstance().getTableData();
+                    ArrayList<ReferencedSupportRequest> messages = SupportRequestDAO.getInstance().getAll();
                     for(int i = 0; i < messages.size(); i++){
-                        ReferencedMessage message = messages.get(i);
+                        ReferencedSupportRequest message = messages.get(i);
                 %>
                 <div class="py-2">
                     <strong>From : &lt;<%=message.getEmail()%>&gt;</strong>
                     <div>
-                        <strong><%=message.getRequest()%></strong><br/>
                         <strong><%=message.getTitle()%></strong>
                         <p>
-                            <%=message.getBody()%>
+                            <%=message.getMessage()%>
                         </p>
                     </div>
                 </div>
