@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-public class UserTest extends AbstractTest {
+public class UserTest extends BaseTest {
 
     @BeforeEach
     public void init() throws SQLException {

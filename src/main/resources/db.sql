@@ -111,10 +111,41 @@ CREATE TABLE "supportRequest" (
 );
 
 --
--- CURRENCY*
+-- CURRENCY /* Standby */
 DROP TABLE IF EXISTS "currency";
 CREATE TABLE "currency" (
     currency_id serial PRIMARY KEY,
     currency_name varchar(255),
     currency_symbol varchar(255)
+)
+
+--
+-- WALLET
+DROP TABLE IF EXISTS "wallet";
+CREATE TABLE "wallet" (
+    wallet_id serial PRIMARY KEY,
+    wallet_name varchar(255),
+    wallet_user int not null,
+    wallet_crypto int not null,
+    wallet_date "date",
+    CONSTRAINT fk_user FOREIGN KEY (wallet_user) REFERENCES "user" (user_id),
+    CONSTRAINT fk_crypto FOREIGN KEY (wallet_crypto) REFERENCES "crypto" (crypto_id)
+)
+
+--
+-- OPERATION
+DROP TABLE IF EXISTS "operation";
+CREATE TABLE "operation" (
+    operation_id serial PRIMARY KEY,
+    operation_origin int null, -- Contrary to "transaction", this is a wallet, not a user
+    operation_destination int null, -- Same same
+    operation_crypto int null,
+    operation_crypto_n int null,
+    operation_sum int,
+    operation_exchange int null,
+    operation_date date not null,
+    CONSTRAINT fk_origin FOREIGN KEY (operation_origin) REFERENCES "wallet"(wallet_id),
+    CONSTRAINT fk_destination FOREIGN KEY (operation_destination) REFERENCES "wallet"(wallet_id),
+    CONSTRAINT fk_crypto FOREIGN KEY (transaction_crypto) REFERENCES crypto(crypto_id),
+    CONSTRAINT fk_exchange FOREIGN KEY (transaction_exchange) REFERENCES exchange(exchange_id)
 )

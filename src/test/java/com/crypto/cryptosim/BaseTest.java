@@ -22,6 +22,8 @@ public class BaseTest extends Mockito {
     protected ChartsController cc;
     protected MessageDAO msr;
     protected SupportRequestDAO srd;
+    protected WalletDAO wd;
+    protected OperationDAO od;
 
     @BeforeEach
     protected void init() throws SQLException {
@@ -36,7 +38,11 @@ public class BaseTest extends Mockito {
         mm = MarketManager.getInstance();
         msr = MessageDAO.getInstance();
         srd = SupportRequestDAO.getInstance();
+        wd = WalletDAO.getInstance();
+        od = OperationDAO.getInstance();
 
+        od.destroySQLTable();
+        wd.destroySQLTable();
         srd.destroySQLTable();
         trm.destroySQLTable();
         er.destroySQLTable();
@@ -51,6 +57,8 @@ public class BaseTest extends Mockito {
         trm.buildSQLTable();
         msr.buildSQLTable();
         srd.buildSQLTable();
+        wd.buildSQLTable();
+        od.buildSQLTable();
 
         tm = TickManager.getInstance();
 
