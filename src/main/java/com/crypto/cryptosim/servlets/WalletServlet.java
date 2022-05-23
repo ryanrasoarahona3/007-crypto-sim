@@ -77,9 +77,54 @@ public class WalletServlet extends BaseServlet {
                 }
 
                 OperationManager.getInstance().buyCrypto(wallet, n);
-
                 addInfo(Info.WALLET_TRANSACTION_DONE);
                 sendRedirect(request, response, "wallet.jsp");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else if (action.equals("sell_crypto")){
+            int walletId = Integer.parseInt(request.getParameter("wallet"));
+            int n = Integer.parseInt(request.getParameter("n"));
+
+            Wallet wallet = null;
+            try {
+                wallet = WalletDAO.getInstance().getById(walletId);
+                ValuableCrypto crypto = MarketManager.getInstance().cryptoById(wallet.getCryptoId());
+
+                if(n > OperationManager.getInstance().numberOfCoins(wallet)){
+                    addInputError(InputError.WALLET_NOT_ENOUGH_CRYPTO);
+                    dispatchForward(request, response, "wallet.jsp");
+                    return;
+                }
+
+                OperationManager.getInstance().sellCrypto(wallet, n);
+                addInfo(Info.WALLET_TRANSACTION_DONE);
+                sendRedirect(request, response, "wallet.jsp");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else if (action.equals("deposit")) {
+            int sum = Integer.parseInt(request.getParameter("sum"));
+
+            try {
+                OperationManager.getInstance().deposit(activeUser, sum);
+                addInfo(Info.DEPOSIT_DONE);
+                sendRedirect(request, response, "wallet");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else if (action.equals("withdrawal")) {
+            int sum = Integer.parseInt(request.getParameter("sum"));
+            try {
+                int balance = OperationManager.getInstance().getBalance(activeUser);
+                if(sum > balance){
+                    addInputError(InputError.WALLET_WITHDRAWAL_NOT_ENOUGH_CASH);
+                    dispatchForward(request, response, "wallet.jsp");
+                    return;
+                }
+                OperationManager.getInstance().withdrawal(activeUser, sum);
+                addInfo(Info.WITHDRAWAL_DONE);
+                sendRedirect(request, response, "wallet");
             } catch (SQLException e) {
                 e.printStackTrace();
             }

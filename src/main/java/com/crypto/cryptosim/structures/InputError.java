@@ -32,6 +32,9 @@ public enum InputError {
     // Pour la création d'un wallet
     WALLET_EMPTY_NAME,
     WALLET_NOT_ENOUGH_BALANCE,
-    WALLET_INVALID_VALUE_OF_N
+    WALLET_INVALID_VALUE_OF_N,
+    WALLET_NOT_ENOUGH_CRYPTO,
+
+    WALLET_WITHDRAWAL_NOT_ENOUGH_CASH
 
 }

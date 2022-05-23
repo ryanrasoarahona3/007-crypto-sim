@@ -108,7 +108,6 @@ public class WalletServletTest extends ServletBaseTest {
         assertEquals(0, s.getErrorLen());
         assertTrue(s.haveInfo(Info.WALLET_TRANSACTION_DONE));
         assertEquals(balance - 2*unitPrice, om.getBalance(u));
-
     }
 
     @Test
@@ -123,5 +122,84 @@ public class WalletServletTest extends ServletBaseTest {
         s.doPost(request, response);
         assertEquals(1, s.getErrorLen());
         assertTrue(s.haveInputError(InputError.WALLET_NOT_ENOUGH_BALANCE));
+    }
+
+    @Test
+    public void sellCryptoSuccessfullyTest() throws SQLException, ServletException, IOException {
+        om.buyCrypto(w1, 4);
+        tm.nextTick();
+
+        patchSession("email", u.getEmail());
+        patchSession("password", u.getPassword());
+        patchParameter("action", "sell_crypto");
+        patchParameter("wallet", ""+w1.getId());
+        patchParameter("n", ""+3);
+
+        s.doPost(request, response);
+        assertEquals(0, s.getErrorLen());
+        assertTrue(s.haveInfo(Info.WALLET_TRANSACTION_DONE));
+        assertEquals(1, om.numberOfCoins(w1));
+
+    }
+
+    @Test
+    public void notEnoughCryptoErrorTesting() throws SQLException, ServletException, IOException {
+        om.buyCrypto(w1, 4);
+        tm.nextTick();
+
+        patchSession("email", u.getEmail());
+        patchSession("password", u.getPassword());
+        patchParameter("action", "sell_crypto");
+        patchParameter("wallet", ""+w1.getId());
+        patchParameter("n", ""+5);
+
+        s.doPost(request, response);
+        assertEquals(1, s.getErrorLen());
+        assertTrue(s.haveInputError(InputError.WALLET_NOT_ENOUGH_CRYPTO));
+        assertEquals(4, om.numberOfCoins(w1));
+    }
+
+    @Test
+    public void depositTest() throws ServletException, IOException, SQLException {
+
+        int oldBalance = om.getBalance(u);
+        patchSession("email", u.getEmail());
+        patchSession("password", u.getPassword());
+        patchParameter("action", "deposit");
+        patchParameter("sum", ""+5000);
+
+        s.doPost(request, response);
+        assertEquals(0, s.getErrorLen());
+        assertTrue(s.haveInfo(Info.DEPOSIT_DONE));
+        assertEquals(oldBalance+5000, om.getBalance(u));
+
+    }
+
+    @Test
+    public void withdrawalTest() throws SQLException, ServletException, IOException {
+        int oldBalance = om.getBalance(u);
+        patchSession("email", u.getEmail());
+        patchSession("password", u.getPassword());
+        patchParameter("action", "withdrawal");
+        patchParameter("sum", ""+200);
+
+        s.doPost(request, response);
+        assertEquals(0, s.getErrorLen());
+        assertTrue(s.haveInfo(Info.WITHDRAWAL_DONE));
+        assertEquals(oldBalance-200, om.getBalance(u));
+    }
+
+    @Test
+    public void withdrawalErrorTest() throws SQLException, ServletException, IOException {
+        int oldBalance = om.getBalance(u);
+        patchSession("email", u.getEmail());
+        patchSession("password", u.getPassword());
+        patchParameter("action", "withdrawal");
+        patchParameter("sum", ""+200000);
+
+        s.doPost(request, response);
+        assertEquals(1, s.getErrorLen());
+        assertTrue(s.haveInputError(InputError.WALLET_WITHDRAWAL_NOT_ENOUGH_CASH));
+        assertEquals(oldBalance, om.getBalance(u));
     }
 }
