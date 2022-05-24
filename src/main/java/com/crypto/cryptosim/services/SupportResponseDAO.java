@@ -1,10 +1,7 @@
 package com.crypto.cryptosim.services;
 
 import com.crypto.cryptosim.AbstractDAO;
-import com.crypto.cryptosim.models.ReferencedSupportRequest;
-import com.crypto.cryptosim.models.ReferencedSupportResponse;
-import com.crypto.cryptosim.models.SupportRequest;
-import com.crypto.cryptosim.models.SupportResponse;
+import com.crypto.cryptosim.models.*;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -73,6 +70,18 @@ public class SupportResponseDAO extends AbstractDAO {
         PreparedStatement stmt = null;
         ArrayList<SupportResponse> output = new ArrayList<>();
         stmt = getConnection().prepareStatement("SELECT * from \"supportResponse\" INNER JOIN \"user\" ON response_user = \"user\".\"user_id\"");
+        ResultSet rs = stmt.executeQuery();
+        while(rs.next()){
+            output.add(getFromResultSet(rs));
+        }
+        return output;
+    }
+
+    public ArrayList<SupportResponse> getAllSentToUser(User u) throws SQLException {
+        PreparedStatement stmt = null;
+        ArrayList<SupportResponse> output = new ArrayList<>();
+        stmt = getConnection().prepareStatement("SELECT * from \"supportResponse\" INNER JOIN \"user\" ON response_user = \"user\".\"user_id\" WHERE \"user\".\"user_id\"=?;");
+        stmt.setInt(1, u.getId());
         ResultSet rs = stmt.executeQuery();
         while(rs.next()){
             output.add(getFromResultSet(rs));

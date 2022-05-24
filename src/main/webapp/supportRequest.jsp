@@ -1,15 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="com.crypto.cryptosim.models.ReferencedMessage" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.crypto.cryptosim.services.MessageDAO" %>
 <%@ page import="com.crypto.cryptosim.DatabaseManager" %>
 <%@ page import="com.crypto.cryptosim.services.SessionManager" %>
-<%@ page import="com.crypto.cryptosim.models.User" %>
-<%@ page import="com.crypto.cryptosim.models.ExtendedUser" %>
 <%@ page import="com.crypto.cryptosim.services.SupportRequestDAO" %>
-<%@ page import="com.crypto.cryptosim.models.ReferencedSupportRequest" %>
 <%@ page import="com.crypto.cryptosim.structures.Info" %>
 <%@ page import="com.crypto.cryptosim.structures.InputError" %>
+<%@ page import="com.crypto.cryptosim.models.*" %>
+<%@ page import="com.crypto.cryptosim.services.SupportResponseDAO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
@@ -80,6 +78,26 @@
 
                     <input type="submit" class="btn btn-primary" value="Envoyer"/>
                 </form>
+                <hr/>
+                <%
+                    ArrayList<SupportResponse> responses = SupportResponseDAO.getInstance().getAllSentToUser(user);
+                    int l = responses.size();
+                %>
+                <h3 class="my-5">You have <%=l%> message<%=(l>1)?"s":""%> from the admin</h3>
+                <%
+                    for(int i = 0; i < responses.size(); i++){
+                        SupportResponse r = responses.get(i);
+                %>
+                <div class="my-3">
+                    <h5>Object : <%=r.getTitle()%></h5>
+                    <p>
+                        <%=r.getMessage()%>
+                    </p>
+                    <hr/>
+                </div>
+                <%
+                    }
+                %>
             </div>
         </div>
 
