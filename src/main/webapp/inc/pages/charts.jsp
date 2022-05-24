@@ -15,7 +15,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
 
-
+<h2 class="mb-5">Charts</h2>
 <div class="accordion" id="accordionExample">
     <%
         DatabaseManager.getInstance().init(request.getServletContext());
@@ -39,9 +39,12 @@
                         <canvas id="chart-<%= c.getId() %>-7" width="350" height="200"></canvas>
                     </div>
                     <div class="col-sm-6 pt-5">
-                        <h6>Prix actuel : <%= c.getValue() %> €</h6>
+                        <h6>Actual price : <%= c.getValue() %> €</h6>
+                        <!-- TODO: faire fonctionner cette partie du code -->
+                        <!--
                         <h6>Dans votre wallet : <%= TransactionManager.getInstance().numberOfCoins(u, c) %> <%= c.getSlug() %></h6>
                         <h6>Total des actifs : <%= (TransactionManager.getInstance().numberOfCoins(u, c) * c.getValue()) %> €</h6>
+                        -->
                     </div>
                 </div>
                 <div class="row">
@@ -111,7 +114,7 @@
                                 plugins: {
                                     title: {
                                         display: true,
-                                        text: "Durant les <%= numberOfDays %> derniers jours"
+                                        text: "During <%= numberOfDays %> latest days"
                                     }
                                 }
                             }

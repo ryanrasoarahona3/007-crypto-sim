@@ -15,14 +15,14 @@
         <img src="images/logo.PNG" width="350" class="d-inline-block align-top" alt=""/>
     </div>
     <p>
-        Crypto-sim est une application de simulation de crypto-monnaie.
-        Pour continuer à utiliser le site, veuillez
-        <a href="login.jsp">vous connecter</a>. <br/>
+        Crypto-sim is a web-based application used for cryptocurrency simulation.
+        To use the simulator, please
+        <a href="login.jsp">log in</a>. <br/>
 
-        Si vous n'avez pas encore de compte, <a href="signup.jsp">inscrivez-vous</a>.
+        If this is your first visit to the site, you can <a href="signup.jsp">create a new account</a>.
     </p>
     <p>
-        Vous pouvez aussi choisir de <a href="installation.jsp">réinstaller</a> la base de donnnées
+        You can also choose to <a href="installation.jsp">reinstall</a> the database.
     </p>
 </div>
 

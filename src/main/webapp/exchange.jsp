@@ -40,9 +40,9 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Site</th>
-                    <th scope="col">Volume en 24h</th>
-                    <th scope="col">Volume en 7j</th>
-                    <th scope="col">Volume en 30j</th>
+                    <th scope="col">24h volume</th>
+                    <th scope="col">7j volume</th>
+                    <th scope="col">30j volume</th>
                     <th scope="col">Liquidité</th>
                 </tr>
                 </thead>
