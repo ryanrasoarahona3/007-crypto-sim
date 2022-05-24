@@ -96,30 +96,30 @@
                 <h3>Latest news from crypto universe</h3>
                 <div class="row my-3">
                     <div class="col-md-4">
-                        <h4>« Au Salvador, le rêve autour du bitcoin est en train de s’évanouir »</h4>
+                        <h4>« Has govt gone too far by slapping a 1% TDS on transfers of virtual digital assets? »</h4>
                         <p>
-                            En plus de faire courir de graves risques financiers, la cryptomonnaie, devenue devise officielle dans le pays d’Amérique latine, répond aux attentes d’une classe moyenne émergente mais écarte les plus âgés et les plus défavorisés, explique Julien Bouissou dans sa chronique.
+                            A back-of-the-envelope calculations suggest that a trader will be left with 60 per cent of their initial capital after TDS on 50 trades. This sucks out liquidity from the crypto ecosystem
                         </p>
                         <p class="text-center">
-                            <a href="#" class="btn btn-sm btn-outline-primary px-5">Lire</a>
+                            <a href="https://economictimes.indiatimes.com/opinion/et-commentary/has-govt-gone-too-far-by-slapping-a-1-tds-on-transfers-of-virtual-digital-assets/articleshow/91081387.cms" class="btn btn-sm btn-outline-primary px-5">Lire</a>
                         </p>
                     </div>
                     <div class="col-md-4">
-                        <h4>« La guerre en Ukraine va accélérer l’ascension du yuan à l’international et le déclin du dollar roi »</h4>
+                        <h4>« ETMarkets Crypto Conclave: Is crypto to be considered seriously as an asset class? »</h4>
                         <p>
-                            Dans un entretien au « Monde », l’économiste Michel Aglietta explique comment l’émergence des monnaies numériques de banques centrales peut rebattre les cartes du système monétaire international.
+                            Bitcoin specifically has become an asset class due to people seeking long-term gains rather than speculative trading. The decentralised network cannot be missed either, which in itself is a revolutionising entity that may soon overtake social media and other platforms.
                         </p>
                         <p class="text-center">
-                            <a href="#" class="btn btn-sm btn-outline-primary px-5">Lire</a>
+                            <a href="https://economictimes.indiatimes.com/markets/cryptocurrency/etmarkets-crypto-conclave-is-crypto-to-be-considered-seriously-as-an-asset-class/articleshow/90568319.cms" class="btn btn-sm btn-outline-primary px-5">Lire</a>
                         </p>
                     </div>
                     <div class="col-md-4">
-                        <h4>Au Canada, le populiste qui veut remplacer le dollar par le bitcoin</h4>
+                        <h4>« Bitcoin miners want to recast themselves as eco-friendly »</h4>
                         <p>
-                            Pierre Poilièvre, candidat à la direction du Parti conservateur, aimerait faire du pays la capitale mondiale de la blockchain. Il promeut un discours anti-establishment faisant écho aux frustrations exprimées par le mouvement du « convoi de la liberté ».
+                            Facing intense criticism, the crypto mining industry is trying to change the view that its energy-guzzling computers are harmful to the climate.
                         </p>
                         <p class="text-center">
-                            <a href="#" class="btn btn-sm btn-outline-primary px-5">Lire</a>
+                            <a href="https://economictimes.indiatimes.com/tech/technology/bitcoin-miners-want-to-recast-themselves-as-eco-friendly/articleshow/90411223.cms" class="btn btn-sm btn-outline-primary px-5">Lire</a>
                         </p>
                     </div>
 
