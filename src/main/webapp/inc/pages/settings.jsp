@@ -99,7 +99,8 @@
         </h2>
         <div id="collapseAboutus" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
             <div class="accordion-body">
-                <p>Hello world</p>
+                <p>Crypto-sim is a web-based application used for cryptocurrency simulation.</p>
+                <p>The application has been written in Java using JSP and Servlet Technology.</p>
             </div>
         </div>
     </div>

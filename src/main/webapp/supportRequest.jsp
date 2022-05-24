@@ -159,7 +159,7 @@
                                         <% } %>-->
                                     </div>
 
-                                    <input type="submit" class="btn btn-primary" value="Répondre"/>
+                                    <input type="submit" class="btn btn-primary" value="Send"/>
                                 </form>
                             </div>
                         </div>

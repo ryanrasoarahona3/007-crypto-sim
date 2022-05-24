@@ -75,7 +75,7 @@
                 <% } %>
             </div>
             <p>You already have an account ? <a href="login.jsp">Sign in</a></p>
-            <input type="submit" class="btn btn-primary" value="S'inscrire"/>
+            <input type="submit" class="btn btn-primary" value="Submit"/>
         </form>
     </div>
 </div>
