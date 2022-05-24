@@ -56,7 +56,7 @@
                 %>
                 <tr>
                     <th scope="row"><%= e.getId() %></th>
-                    <td><a href="<%= e.getUrl()%>"></a><img width="32" class="mx-2" src="<%= e.getLogo()%>"/> <%= e.getName() %> </a></td>
+                    <td><a href="<%= e.getUrl()%>"><img width="32" class="mx-2" src="<%= e.getLogo()%>"/> <%= e.getName() %> </a></td>
                     <td><%= e.getVolDay() %> €</td>
                     <td><%= e.getVolWeek() %> €</td>
                     <td><%= e.getVolMonth() %> €</td>
