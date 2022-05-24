@@ -1,11 +1,4 @@
 
-DROP TABLE IF EXISTS "user";
-CREATE TABLE "user" (
-                        user_id serial PRIMARY KEY,
-                        user_email varchar(255),
-                        user_pseudo varchar(255),
-                        user_password varchar(255)
-);
 
 -- la colonne seed permet d'associer un crypto à une série d'évolution de valeur
 -- qu'on a enregistré dans le fichier stocks-random.txt
@@ -66,38 +59,11 @@ CREATE TABLE "exchange" (
 );
 
 
-DROP TABLE IF EXISTS "transaction";
-CREATE TABLE "transaction" (
-    transaction_id serial PRIMARY KEY,
-    transaction_transmitter INT NULL,
-    transaction_recipient INT NULL,
-    transaction_crypto INT NULL,
-    transaction_crypto_n INT NULL,
-    transaction_sum INT,
-    transaction_exchange INT NULL,
-    transaction_date DATE NOT NULL,
-    CONSTRAINT fk_transmitter FOREIGN KEY (transaction_transmitter) REFERENCES "user"(user_id),
-    CONSTRAINT fk_recipient FOREIGN KEY (transaction_recipient) REFERENCES "user"(user_id),
-    CONSTRAINT fk_crypto FOREIGN KEY (transaction_crypto) REFERENCES crypto(crypto_id),
-    CONSTRAINT fk_exchange FOREIGN KEY (transaction_exchange) REFERENCES exchange(exchange_id)
-);
-
 
 --
 -- SELECT
 
 
---
--- TECHNICAL SUPPORT
-DROP TABLE IF EXISTS "message";
-CREATE TABLE "message" (
-    message_id serial PRIMARY KEY,
-    message_request varchar(255),
-    message_title varchar(255),
-    message_body text,
-    message_sender INT NOT NULL,
-    CONSTRAINT fk_sender FOREIGN KEY (message_sender) REFERENCES "user"(user_id"")
-)
 
 --
 -- SUPPORT REQUEST
@@ -111,13 +77,16 @@ CREATE TABLE "supportRequest" (
 );
 
 --
--- CURRENCY /* Standby */
-DROP TABLE IF EXISTS "currency";
-CREATE TABLE "currency" (
-    currency_id serial PRIMARY KEY,
-    currency_name varchar(255),
-    currency_symbol varchar(255)
-)
+-- SUPPORT RESPONSE
+DROP TABLE IF EXISTS "supportResponse";
+CREATE TABLE "supportResponse" (
+    response_id serial PRIMARY KEY,
+    response_title varchar(255),
+    response_message text,
+    response_user int not null,
+    CONSTRAINT fk_user FOREIGN KEY (response_user) REFERENCES "user" (user_id)
+);
+
 
 --
 -- WALLET

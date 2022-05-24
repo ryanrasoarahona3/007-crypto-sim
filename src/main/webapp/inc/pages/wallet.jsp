@@ -197,7 +197,7 @@
                         <input type="hidden" name="wallet" value="<%=w.getId()%>"/>
                         <div class="input-group mb-3 auto-updated" data-price="<%=c.getValue()%>">
                             <input type="number" class="form-control" placeholder="Hom many <%=c.getName()%> do you want to sell ?" aria-describedby="sell-<%=w.getId()%>" name="n">
-                            <span class="input-group-text" id="sell-<%=w.getId()%>">BTC = <span class="total">0</span> €</span>
+                            <span class="input-group-text" id="sell-<%=w.getId()%>"><%=c.getSlug()%> = <span class="total">0</span> €</span>
                             <button type="submit" class="btn btn-danger" type="button">Sell</button>
                         </div>
                     </form>
