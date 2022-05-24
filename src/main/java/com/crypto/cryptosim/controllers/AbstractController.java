@@ -16,6 +16,7 @@ public abstract class AbstractController {
     protected TransactionManager trm;
     protected MessageDAO msr;
     protected SupportRequestDAO srd;
+    protected SupportResponseDAO srod;
 
     protected WalletDAO wd;
     protected UserOperationDAO uod;

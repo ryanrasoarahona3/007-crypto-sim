@@ -1,7 +1,9 @@
 package com.crypto.cryptosim.servlets;
 
 import com.crypto.cryptosim.models.SupportRequest;
+import com.crypto.cryptosim.models.SupportResponse;
 import com.crypto.cryptosim.services.SupportRequestDAO;
+import com.crypto.cryptosim.services.SupportResponseDAO;
 import com.crypto.cryptosim.structures.Info;
 import com.crypto.cryptosim.structures.InputError;
 
@@ -17,6 +19,7 @@ public class SupportRequestServlet extends BaseServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         resetVars(request);
+        String action = request.getParameter("action");
 
         // For the view
         if(activeUser == null){
@@ -41,13 +44,25 @@ public class SupportRequestServlet extends BaseServlet {
         }
 
         try {
-            SupportRequest s = new SupportRequest();
-            s.setTitle(title);
-            s.setMessage(message);
-            s.setUserId(activeUser.getId());
-            SupportRequestDAO.getInstance().add(s);
-            addInfo(Info.SUPPORTREQUEST_SUCCESS);
-            sendRedirect(request, response, "supportRequest");
+            if(action.equals("request")) {
+                SupportRequest s = new SupportRequest();
+                s.setTitle(title);
+                s.setMessage(message);
+                s.setUserId(activeUser.getId());
+                SupportRequestDAO.getInstance().add(s);
+                addInfo(Info.SUPPORTREQUEST_SUCCESS);
+                sendRedirect(request, response, "supportRequest");
+                return;
+            }else if(action.equals("response")) {
+                int userId = Integer.parseInt(request.getParameter("userId"));
+                SupportResponse s = new SupportResponse();
+                s.setTitle(title);
+                s.setMessage(message);
+                s.setUserId(userId); // This is not the transmitter, but the receiver
+                SupportResponseDAO.getInstance().add(s);
+                addInfo(Info.SUPPORTRESPONSE_SUCCESS);
+                sendRedirect(request, response, "supportRequest");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

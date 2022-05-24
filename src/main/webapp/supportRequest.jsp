@@ -47,6 +47,7 @@
             <div class="card-body">
                 <h2>Technical support</h2>
                 <form method="post" action="supportRequest">
+                    <input type="hidden" name="action" value="request"/>
 
                     <% if(infos.contains(Info.SUPPORTREQUEST_SUCCESS)){ %>
                     <div class="my-3 text-success">
@@ -86,23 +87,69 @@
         <div class="card">
             <div class="card-body">
                 <h2>Received messages</h2>
-                <%
-                    ArrayList<ReferencedSupportRequest> messages = SupportRequestDAO.getInstance().getAll();
-                    for(int i = 0; i < messages.size(); i++){
-                        ReferencedSupportRequest message = messages.get(i);
-                %>
-                <div class="py-2">
-                    <strong>From : &lt;<%=message.getEmail()%>&gt;</strong>
-                    <div>
-                        <strong><%=message.getTitle()%></strong>
-                        <p>
-                            <%=message.getMessage()%>
-                        </p>
+                <div class="accordion" id="accordionExample">
+                    <%
+                        ArrayList<ReferencedSupportRequest> messages = SupportRequestDAO.getInstance().getAll();
+                        for(int i = 0; i < messages.size(); i++){
+                            ReferencedSupportRequest message = messages.get(i);
+                    %>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="message<%=message.getId()%>">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMessage<%=message.getId()%>" aria-expanded="true" ariaControls="collapseMessage<%=message.getId()%>">
+                                <%=message.getTitle()%>
+                            </button>
+                        </h2>
+                        <div id="collapseMessage<%=message.getId()%>" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <strong>From : &lt;<%=message.getEmail()%>&gt;</strong>
+                                <div>
+                                    <p>
+                                        <%=message.getMessage()%>
+                                    </p>
+                                </div>
+                                <hr/>
+                                <form method="post" action="supportRequest">
+                                    <input type="hidden" name="action" value="response"/>
+                                    <input type="hidden" name="userId" value="<%=message.getUserId()%>"/>
+
+                                    <% if(infos.contains(Info.SUPPORTRESPONSE_SUCCESS)){ %>
+                                    <div class="my-3 text-success">
+                                        <p>
+                                            Your response has been sent to the site user
+                                        </p>
+                                    </div>
+                                    <% } %>
+
+                                    <div class="mb-3">
+                                        <label for="messageTitle" class="form-label">Object</label>
+                                        <input type="text" class="form-control form-control-sm" id="messageTitle" name="title"
+                                               value="<%= (request.getParameter("title")!=null)?request.getParameter("title"):""%>"
+                                        >
+                                        <!--<% if(errors.contains(InputError.SUPPORTREQUEST_EMPTY_TITLE)) { %>
+                                        <p class="text-danger" style="font-size: .8em;">
+                                            Required field
+                                        </p>
+                                        <% } %>-->
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="messageBody" class="form-label">Your message</label>
+                                        <textarea class="form-control form-control-sm" id="messageBody" rows="3" name="message"><%= (request.getParameter("message")!=null)?request.getParameter("message"):""%></textarea>
+                                        <!--<% if(errors.contains(InputError.SUPPORTREQUEST_EMPTY_MESSAGE)) { %>
+                                        <p class="text-danger" style="font-size: .8em;">
+                                            Required field
+                                        </p>
+                                        <% } %>-->
+                                    </div>
+
+                                    <input type="submit" class="btn btn-primary" value="Répondre"/>
+                                </form>
+                            </div>
+                        </div>
                     </div>
+                    <%
+                        }
+                    %>
                 </div>
-                <%
-                    }
-                %>
             </div>
         </div>
         <% } %>

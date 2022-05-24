@@ -23,6 +23,7 @@ public class BaseTest extends Mockito {
     protected ChartsController cc;
     protected MessageDAO msr;
     protected SupportRequestDAO srd;
+    protected SupportResponseDAO srod;
     protected WalletDAO wd;
     protected UserOperationDAO uod;
     protected WalletOperationDAO wod;
@@ -41,6 +42,7 @@ public class BaseTest extends Mockito {
         mm = MarketManager.getInstance();
         msr = MessageDAO.getInstance();
         srd = SupportRequestDAO.getInstance();
+        srod = SupportResponseDAO.getInstance();
         wd = WalletDAO.getInstance();
         uod = UserOperationDAO.getInstance();
         wod = WalletOperationDAO.getInstance();
@@ -49,6 +51,7 @@ public class BaseTest extends Mockito {
         wod.destroySQLTable();
         uod.destroySQLTable();
         wd.destroySQLTable();
+        srod.destroySQLTable();
         srd.destroySQLTable();
         trm.destroySQLTable();
         er.destroySQLTable();
@@ -63,6 +66,7 @@ public class BaseTest extends Mockito {
         trm.buildSQLTable();
         msr.buildSQLTable();
         srd.buildSQLTable();
+        srod.buildSQLTable();
         wd.buildSQLTable();
         uod.buildSQLTable();
         wod.buildSQLTable();

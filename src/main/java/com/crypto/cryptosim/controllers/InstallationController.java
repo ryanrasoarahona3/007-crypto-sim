@@ -115,6 +115,7 @@ public class InstallationController extends AbstractController{
         mm = MarketManager.getInstance();
         msr = MessageDAO.getInstance(); // deprecated
         srd = SupportRequestDAO.getInstance();
+        srod = SupportResponseDAO.getInstance();
         wd = WalletDAO.getInstance();
         uod = UserOperationDAO.getInstance();
         wod = WalletOperationDAO.getInstance();
@@ -124,6 +125,7 @@ public class InstallationController extends AbstractController{
         wod.destroySQLTable();
         wd.destroySQLTable();
         srd.destroySQLTable();
+        srod.destroySQLTable();
         trm.destroySQLTable();
         er.destroySQLTable();
         mm.destroySQLTable();
@@ -135,6 +137,7 @@ public class InstallationController extends AbstractController{
         mm.buildSQLTable();
         er.buildSQLTable();
         trm.buildSQLTable();
+        srod.buildSQLTable();
         srd.buildSQLTable();
         wd.buildSQLTable();
         uod.buildSQLTable();
