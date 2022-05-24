@@ -117,7 +117,6 @@ public class DatabaseManager {
             DatabaseManager.setDbName((String)p.get("DATABASE_NAME"));
             DatabaseManager.setUserName((String)p.get("DATABASE_USER"));
             DatabaseManager.setPassword((String)p.get("DATABASE_PASSWORD"));
-            System.out.println("OK");
         } catch (IOException e) {
             e.printStackTrace();
         }

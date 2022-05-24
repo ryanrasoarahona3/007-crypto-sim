@@ -3,7 +3,7 @@
 <%@ page import="com.crypto.cryptosim.services.SessionManager" %>
 <nav class="navbar navbar-expand-lg navbar-light bg-light mb-5">
     <div class="container">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="index.jsp">
             <img src="images/logo.PNG" height="50" class="d-inline-block align-top" alt="">
 
         </a>
