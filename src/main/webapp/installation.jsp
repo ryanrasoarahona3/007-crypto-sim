@@ -10,13 +10,13 @@
             <img src="images/logo.PNG" width="350" class="d-inline-block align-top" alt=""/>
         </div>
         <div>
-            <h3>Configuration et installation</h3>
+            <h3>Installation</h3>
         </div>
         <div>
-            <p>Bonjour, la base de donnée spécifiée n'est pas utilisable par l'application. Veuillez lancer l'installation.</p>
+            <p>Your database hasn't been installed, please run the installation script via the button below.</p>
         </div>
         <div>
-            <a class="btn btn-primary" href="installation">Lancer l'installation</a>
+            <a class="btn btn-primary" href="installation">Launch Installation</a>
         </div>
     </div>
 </body>

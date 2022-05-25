@@ -55,14 +55,14 @@
             <input class="form-control" type="email" id="email" name="email" value="<%= u.getEmail() %>"/>
          </div>
          <div class="my-4">
-            <label for="phone">Telephone</label>
+            <label for="phone">Phone number</label>
             <input class="form-control" type="text" id="phone" name="phone" value="<%= u.getPhone() %>"/>
          </div>
          <div class="my-4">
             <!-- TODO: problème d'accentuation à résoudre -->
             <!-- TODO: photo de profil -->
             <!-- TODO: bug sur la date -->
-            <label for="address">Addresse</label>
+            <label for="address">Address</label>
             <input class="form-control" type="text" id="address" name="address" value="<%= u.getAddress() %>">
          </div>
       </div>
