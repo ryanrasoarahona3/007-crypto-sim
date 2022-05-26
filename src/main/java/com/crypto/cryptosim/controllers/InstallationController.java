@@ -149,36 +149,42 @@ public class InstallationController extends AbstractController{
             c1.setName("Bitcoin");
             c1.setSlug("BTC");
             c1.setValue(500);
+            c1.setLogo("https://cryptologos.cc/logos/thumbs/bitcoin.png?v=022");
             mm.add(c1);
 
             ValuableCrypto c2 = new ValuableCrypto();
             c2.setName("Euthérium");
             c2.setSlug("ETH");
             c2.setValue(100);
+            c2.setLogo("https://cryptologos.cc/logos/thumbs/ethereum.png?v=022");
             mm.add(c2);
 
             ValuableCrypto c3 = new ValuableCrypto();
-            c3.setName("Dodgecoin");
-            c3.setSlug("DOG");
+            c3.setName("Dogecoin");
+            c3.setSlug("DOGE");
             c3.setValue(300);
+            c3.setLogo("https://cryptologos.cc/logos/thumbs/dogecoin.png?v=022");
             mm.add(c3);
 
             ValuableCrypto c4 = new ValuableCrypto();
             c4.setName("Ripple");
             c4.setSlug("XRP");
             c4.setValue(530);
+            c4.setLogo("https://cryptologos.cc/logos/thumbs/xrp.png?v=022");
             mm.add(c4);
 
             ValuableCrypto c5 = new ValuableCrypto();
             c5.setName("Cardano");
             c5.setSlug("ADA");
             c5.setValue(320);
+            c5.setLogo("https://cryptologos.cc/logos/thumbs/cardano.png?v=022");
             mm.add(c5);
 
             ValuableCrypto c6 = new ValuableCrypto();
             c6.setName("Binance Coin");
             c6.setSlug("BNB");
             c6.setValue(520);
+            c6.setLogo("https://cryptologos.cc/logos/thumbs/binance-usd.png?v=022");
             mm.add(c6);
 
             install_exchange();

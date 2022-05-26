@@ -14,10 +14,19 @@
     <div class="col-md-3 my-3">
         <div class="card">
             <div class="card-body">
-                <h3><%= c.getName() %></h3>
-                <p>
-                    <%= c.getValue() %> €
-                </p>
+                <table>
+                    <tr>
+                        <td>
+                            <img style="float: left; width: 42px; margin-right: 1em;" src="<%=(c.getLogo()!=null)?c.getLogo():"https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png?w=640"%>"/>
+                        </td>
+                        <td>
+                            <strong><%= c.getName() %></strong>
+                            <p>
+                                <%= c.getValue() %> €
+                            </p>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>

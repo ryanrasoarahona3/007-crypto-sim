@@ -28,7 +28,8 @@ public class MarketManager extends AbstractDAO {
                 "    crypto_slug varchar(255),\n" +
                 "    crypto_desc text,\n" +
                 "    crypto_seed INT,\n" +
-                "    crypto_seed_cursor INT\n" +
+                "    crypto_seed_cursor INT,\n" +
+                "    crypto_logo text\n" +
                 ");" +
                 "" +
                 "" +
@@ -56,6 +57,7 @@ public class MarketManager extends AbstractDAO {
         c.setSlug(rs.getString("crypto_slug"));
         c.setDescription(rs.getString("crypto_desc"));
         c.setSeed(rs.getInt("crypto_seed"));
+        c.setLogo(rs.getString("crypto_logo"));
         try {
             rs.getInt("crypto_price");
             c.setValue(rs.getInt("crypto_price"));
@@ -76,11 +78,15 @@ public class MarketManager extends AbstractDAO {
         PreparedStatement stmt = null;
 
         // Insertion dans la table crypto
-        stmt = getConnection().prepareStatement("INSERT INTO \"crypto\" (crypto_name, crypto_slug, crypto_desc, crypto_seed) VALUES (?, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
+        stmt = getConnection().prepareStatement("INSERT INTO \"crypto\" (crypto_name, crypto_slug, crypto_desc, crypto_seed, crypto_logo) VALUES (?, ?, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
         stmt.setString(1, c.getName());
         stmt.setString(2, c.getSlug());
         stmt.setString(3, c.getDescription());
         stmt.setInt(4, c.getSeed());
+        if(c.getLogo() != null)
+            stmt.setString(5, c.getLogo());
+        else
+            stmt.setObject(5, null);
         stmt.execute();
         ResultSet generatedKeys = stmt.getGeneratedKeys();
         generatedKeys.next();
@@ -152,7 +158,7 @@ public class MarketManager extends AbstractDAO {
      * @return
      */
     public ValuableCrypto cryptoByName(String name) throws SQLException {
-        String sql = "SELECT crypto_id, crypto_name, crypto_slug, crypto_desc, crypto_seed, price_value as crypto_price\n" +
+        String sql = "SELECT crypto_id, crypto_name, crypto_slug, crypto_desc, crypto_seed, crypto_logo, price_value as crypto_price\n" +
                 "FROM \"crypto\"\n" +
                 "         INNER JOIN (\n" +
                 "    SELECT price_crypto, max(price_date) as MaxDate FROM price group by price_crypto\n" +
@@ -170,7 +176,7 @@ public class MarketManager extends AbstractDAO {
 
 
     public ValuableCrypto cryptoById(int id) throws SQLException {
-        String sql = "SELECT crypto_id, crypto_name, crypto_slug, crypto_desc, crypto_seed, price_value as crypto_price\n" +
+        String sql = "SELECT crypto_id, crypto_name, crypto_slug, crypto_desc, crypto_seed, crypto_logo, price_value as crypto_price\n" +
                 "FROM \"crypto\"\n" +
                 "         INNER JOIN (\n" +
                 "    SELECT price_crypto, max(price_date) as MaxDate FROM price group by price_crypto\n" +
